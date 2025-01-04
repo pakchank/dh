@@ -1,0 +1,80 @@
+---
+title: "API"
+format: html
+editor: source
+---
+
+```{r}
+library(tidyverse)
+library(httr)
+library(jsonlite)
+```
+# API 테스트
+```{r}
+res <- GET(url="https://koddas.knu.ac.kr/api/v1/statement",
+           query=list(key="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFwaXVzZXIiLCJpYXQiOjE3MzUyOTc0MDIsImV4cCI6MTc2NjgzMzQwMn0.q9upgIiYB6haOzc-aUUlwXk5qKvydFZtmDVzXarI1VI",
+                      page=7,
+                      limit="100",
+                      bookNumber="28"))
+
+dtString <- content(res, type="text", encoding="utf-8")
+
+dt <- fromJSON(dtString)
+```
+
+# 함수 만들기
+```{r}
+url <- "https://koddas.knu.ac.kr/api/v1/statement"
+key <- "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFwaXVzZXIiLCJpYXQiOjE3MzUyOTc0MDIsImV4cCI6MTc2NjgzMzQwMn0.q9upgIiYB6haOzc-aUUlwXk5qKvydFZtmDVzXarI1VI"
+
+getPara <- function(page, book){
+    res <- GET(url=url,
+               query=list(key=key,
+                          page=page,
+                          limit=100,
+                          bookNumber=book))
+    dtString <- content(res, type="text", encoding="utf-8")
+
+    dt <- fromJSON(dtString)    
+
+    return(dt)
+    }
+```
+
+```{r}
+list_big <- list()
+page <- 1
+i <- 1
+    
+for (book in 28:31) {     
+    while (TRUE) {
+        dt <- getPara(page=page, book=book)
+        
+        if (length(dt) == 0) {
+            break
+        }
+        list_big[[i]] <- dt
+        page <- page + 1
+        i <- i + 1
+    }
+    page <- 1
+}
+```
+
+```{r}
+df <- bind_rows(list_big)
+```
+
+```{r}
+df |>
+    filter(nchar(content) > 100)
+```
+
+
+```{r}
+dt <- getPara(1,31)
+```
+
+
+
+

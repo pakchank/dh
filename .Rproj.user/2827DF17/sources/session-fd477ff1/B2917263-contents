@@ -1,0 +1,434 @@
+---
+title: "Tidy Text"
+format: html
+editor: source
+---
+
+```{r}
+library(tidyverse)
+library(purrr)
+library(tidytext)
+library(tidygraph)
+library(igraph)
+library(networkD3)
+library(widyr)
+library(KoNLP)
+library(ggraph)
+library(readxl)
+library(beepr)
+library(httr)
+library(glue)
+library(jsonlite)
+library(shiny)
+library(showtext)
+font_add_google(name = "Nanum Gothic", family = "nanumgothic")
+showtext_auto()
+```
+
+https://bookdown.org/ahn_media/bookdown-demo/clean.html
+https://m.blog.naver.com/kimzx12/223437837120
+https://pplsradar.com/r-%ED%85%8D%EC%8A%A4%ED%8A%B8%EB%A7%88%EC%9D%B4%EB%8B%9D-%EC%97%B0%EC%8A%B5feat-%EB%8F%85%EC%A0%842/
+https://youngwoos.github.io/rmeetup_tidy_textmining/tidy_textmining.html#1
+
+SimplePos22()의 output 설명
+https://lightblog.tistory.com/55
+
+
+```{r}
+filepath <- "5. 총서 텍스트DB 최종/"
+dt <- paste0(filepath, list.files(filepath)) |>
+    set_names() |>
+    map(~read_excel(.)) |>
+    map(~rename(., "para" = 1)) |>
+    map(~mutate(., para=as.character(para))) |>
+    bind_rows(.id="book") |>
+    mutate(book = str_replace(book, ".*/book", ""),
+           book = str_replace(book, "( 최종.xlsm)|( 최종.xlsx)|( 최종\\(일부 수정\\).xlsm)", ""),
+           book = as.numeric(book)) |> 
+    filter(book >= 28)                               # 28권 이후 공개
+```
+, `Person:Period;`, Category_num, Category2, Keywords, 
+           `subject-predicate-object;`, Keywords_paper, `Category-num`
+           
+# Tidytext와 KoNLP를 이용한 형태소 분석 방법.
+```{r}
+tidydt <- dt |>
+    select(book, para, TEXT) |>
+    unnest_tokens(word, TEXT, token=SimplePos22)
+beep()
+```
+
+```{r}
+tidydt <- df |>
+```
+
+```{r}
+tidydt |>
+    mutate(word = str_replace(word, "\\+(.*)", "")) |>
+    filter(str_detect(word, "/nc|/nq")) |>
+    separate_wider_delim(word, delim="/", names=c("word", "morph"), too_many="debug") |>
+    filter(!word_ok)
+```
+
+```{r}
+tidydt |>
+    mutate(word = str_replace(word, "\\+(.*)", "")) |>
+    filter(str_detect(word, "/nc|/nq")) |>
+    separate_wider_delim(word, delim="/", names=c("word", "morph"), too_many="drop") |>
+    filter(morph!="nc")
+```
+
+
+
+
+
+
+# ETRI NER을 이용한 방법.
+- 이용자 사전을 이용한 형태소 분석 등은 하지 않았음.
+```{r}
+ner <- function(text) {
+    body = paste0('{"argument": {"text": "', text, '", "analysis_code": "ner"}}')
+    res <- POST(url="http://aiopen.etri.re.kr:8000/WiseNLU_spoken",
+            body= body,
+            encode="raw",
+            add_headers(.headers=c("Content-Type" = "application/json; charset=UTF-8",
+                                   "Authorization"="45a48207-93d4-4d40-9b10-1db71ea2b3ce"))) 
+    
+    sentences <- fromJSON(content(res, as="text", encoding='UTF-8'), simplifyVector=FALSE)$return_object$sentence
+    
+    out <- 1:length(sentences) |>
+        map(~sentences[[.x]]$NE) |>
+        map(~bind_rows(.x)) |>
+        bind_rows(.id="sentence")
+    
+    return(out)
+}
+
+ner_para <- function(row){
+    #print(row$TEXT)
+    nered <- ner(row$TEXT)
+    nered$para <- row$para
+    nered$book <- row$book
+    
+    return(nered)
+}
+```
+
+```{r}
+list_large <- list()
+
+for (i in 1:1000){
+    list_large[[i]] <- ner_para(dt[i, ])
+}
+```
+
+
+
+```{r}
+dt_ner <- bind_rows(list_large)
+
+```
+
+
+
+```{r}
+#saveRDS(dt_ner, "dt_ner.rds")
+dt_ner <- readRDS("dt_ner.rds")
+```
+
+
+
+
+
+
+
+
+# 네트워크
+테그 레퍼런스: https://aiopen.etri.re.kr/guide/WiseNLU
+```{r}
+dt_ner |>
+    filter(!str_detect(type, "DT_|QT_|AM_|TI_|MT_|PT_")) |>
+        #!(type %in% c("")))
+    count(text, sort=T)
+```
+
+```{r}
+dt_ner |>
+    filter(!str_detect(type, "DT_|QT_|AM_|TI_|MT_|PT_")) |>
+        #!(type %in% c("")))
+    count(type, sort=T)
+```
+
+```{r}
+dt_cat <- dt_ner |> 
+    filter(str_detect(type, "(^PS_NAME)|^(LC)|^(OG)")) |>
+    mutate(cat = case_when(str_detect(type, "^PS_NAME") ~  "인물",
+                           str_detect(type, "^LC") ~ "장소",
+                           str_detect(type, "^OG") ~ "조직"))
+```
+
+```{r}
+nodeAttr <- dt_cat |>
+    group_by(text, cat) |>
+    summarise(text=first(text), cat=first(cat)) |>
+    ungroup()
+```
+```{r}
+#saveRDS(nodeAttr, "nodeAttr.rds")
+```
+
+
+```{r}
+dupList <- nodeAttr |>
+    group_by(text) |>
+    summarise(n = n()) |>
+    filter(n >= 2) |>
+    pull(text)
+```
+
+```{r}
+#saveRDS(dupList, "dupList.rds")
+```
+
+```{r}
+nodeAttr |>
+    filter(text %in% dupList)
+```
+
+
+
+
+
+
+
+
+```{r}
+g <- dt_cat |>
+    filter(!(text %in% dupList)) |>
+    unite("bp", c("book", "para")) |>
+    pairwise_count(text, bp, sort=TRUE, diag=FALSE) |>
+    rename(weight=n) |>
+    #filter(weight > 5) |>
+    graph_from_data_frame(directed=FALSE)
+```
+
+```{r}
+is_weighted(g)
+```
+```{r}
+gTidy <- g |>
+    as_tbl_graph()
+```
+
+```{r}
+saveRDS(gTidy, "gTidy.rds")
+```
+
+```{r}
+#nodeList <- gTidy |>
+#    activate(nodes) |>
+#    pull()
+```
+
+```{r}
+gTidy |> 
+    activate(edges) |>
+    filter(weight > 4) |>
+    activate(nodes) |> 
+    left_join(nodeAttr |>
+                  filter(!(text %in% dupList)), by=c("name"="text")) |>
+    mutate(degree = centrality_degree()) |>
+    filter(degree != 0) |>
+    ggraph() +
+    aes(edgh_width=weight, alpah=weight) +
+    geom_edge_link(alpha = 0.50, edge_color = "grey20") +
+    geom_node_point(aes(color=cat), size=10) +
+  #  geom_node_text(aes(label=name)) |>
+    geom_node_text(aes(label = name),         # 텍스트 표시
+                 repel = T,                 # 노드밖 표시
+                 size = 5,                  # 텍스트 크기
+                 family = "nanumgothic") +  # 폰트
+  theme_graph()                             # 배경 삭제                       # 배경 삭제
+
+```
+
+
+
+
+
+
+
+
+
+
+```{r}
+pair <- dt_ner |>
+    filter(!str_detect(type, "DT_|QT_|AM_|TI_|MT_|PT_")) |>
+    pairwise_count(item = text, 
+                   feature = para,    # 다른 책의 같은 para일 수 있음 -> book도 같이 구분하도록 고쳐야 함!
+                   sort = T)
+```
+
+```{r}
+pair |>
+    filter(item1 == "조선족")
+```
+
+```{r}
+graph_kd <- pair %>%
+  filter(n >= 10) %>%
+  as_tbl_graph(directed = F) %>%
+  mutate(centrality = centrality_degree(),    # 연결 중심성
+         group = as.factor(group_infomap()))  # 커뮤니티
+```
+
+```{r}
+
+graph_kd |>
+    ggraph(layout = "fr") +      # 레이아웃
+  geom_edge_link(color = "gray50",          # 엣지 색깔
+                 alpha = 0.5) +             # 엣지 명암
+  geom_node_point(aes(size = centrality,    # 노드 크기
+                      color = group),       # 노드 색깔
+                  show.legend = F) +        # 범례 삭제
+  scale_size(range = c(5, 15)) +            # 노드 크기 범위
+  geom_node_text(aes(label = name),         # 텍스트 표시
+                 repel = T,                 # 노드밖 표시
+                 size = 5,                  # 텍스트 크기
+                 family = "nanumgothic") +  # 폰트
+  theme_graph()                             # 배경 삭제                       # 배경 삭제
+```
+https://youngwoos.github.io/Doit_textmining/05/05-co-occurrenceAnalysis.html#90
+
+
+
+
+
+
+
+
+
+
+
+
+```{r}
+gig <- gTidy |> 
+    activate(edges) |>
+    filter(weight > 4) |>
+    activate(nodes) |> 
+    left_join(nodeAttr |>
+                  filter(!(text %in% dupList)), by=c("name"="text")) |>
+    mutate(degree = centrality_degree()) |>
+    filter(degree != 0) |>
+    as.igraph() 
+gD3 <- gig |>
+    igraph_to_networkD3(group=vertex_attr(gig)$cat)
+```
+
+```{r}
+forceNetwork(Links=gD3$links, Nodes=gD3$nodes,
+             Source = 'source', Target = 'target', NodeID = 'name', Group = 'group')
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    #"request_id": "reserved field",
+
+```{r}
+res <- POST(url="http://aiopen.etri.re.kr:8000/WiseNLU_spoken",
+            body='{"argument": {"text": "박찬경은 경북대학교 미디어커뮤니케이션학과 조교수 입니다.", "analysis_code": "ner"}}',
+            encode="raw",
+            add_headers(.headers=c("Content-Type" = "application/json; charset=UTF-8",
+                                   "Authorization"="45a48207-93d4-4d40-9b10-1db71ea2b3ce"))) 
+```
+
+```{r}
+sentences <- fromJSON(content(res, as="text", encoding='UTF-8'), simplifyVector=FALSE)$return_object$sentence
+```
+
+```{r}
+length(sentences)
+```
+```{r}
+1:length(sentences) |>
+    map(~sentences[[.x]]$NE) |>
+    map(~bind_rows(.x)) |>
+    bind_rows()
+```
+
+
+```{r}
+res <- POST(url="https://www.bigkinds.or.kr/api/analysis/extractFeatures.do",
+            body= '{"content":"박찬경은 경북대학교 미디어커뮤니케이션학과 조교수 입니다."}',
+            endcode="raw",
+            add_headers(.headers=c("Accept" = "application/json, text/javascript, */*; q=0.01;charset=UTF-8",
+                                   "Accept-Encoding" = "gzip, deflate, br, zstd",
+                                   "Accept-Language" = "ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7",
+                                   'Content-Type' = 'application/json',    # 여기가 중요!
+                                   'Host' = 'www.bigkinds.or.kr',
+                                   'Origin' = 'https://www.bigkinds.or.kr',
+                                   'Referer'= 'https://www.bigkinds.or.kr/v2/analysis/featureExtraction.do',
+                                   "User-Agent" = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36")),
+            set_cookies(`NCPVPCLBTG` = "92e683b84841f9e922f49f830f2c66ac8c48ceb3f64b1797f3e88b1ccec63dc1",
+                        `andisnclgnso`= "dd86c0650a6366d09900b481bae8866f85e649dd14c65ac94d543c64053e4d8ae241d03f4a0449aeb6bcaa1db3219f9e553bc1097cf928b280b96bf8e7daf130",
+                        `Bigkinds` = "F9D0A60F6B699042265B5A604F63B21E",
+                        `_gid` = "GA1.3.728077258.1732933435",
+                        `_ga` = "GA1.1.121523732.1726274674",
+                        `_ga_QWY27BS8JM` = "GS1.1.1732933434.4.1.1732934066.60.0.0"))
+```
+
+```{r}
+temp <- content(res, as="text", encoding='UTF-8')
+```
+
+```{r}
+tjson <- fromJSON(temp)
+```
+
+```{r}
+ttjson <- fromJSON(tjson$BAREUN, simplifyVector=FALSE)
+```
+
+```{r}
+ttjson$sentences[[1]]$tokens[[1]]$tagged
+```
+```{r}
+sapply(1:length(ttjson$sentences[[1]]$tokens), function(p) `[[`(ttjson$sentences[[1]]$tokens, p)$tagged)
+```
+c("Accept" = "application/json, text/javascript, */*; q=0.01",
+                                   "Accept-Encoding" = "gzip, deflate, br, zstd",
+                                   "Accept-Language" = "ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7",
+                                   'Host' = 'www.bigkinds.or.kr',
+                                   'Origin' = 'https://www.bigkinds.or.kr',
+                                   'Referer'= 'https://www.bigkinds.or.kr/v2/analysis/featureExtraction.do',
+                                   'Sec-Fetch-Dest' = 'empty',
+                                   'Sec-Fetch-Mode' =  'cors',
+                                   'Sec-Fetch-Site' = 'same-origin',
+                "User-Agent" = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36",
+                "X-Requested-With" = "XMLHttpRequest",
+                'sec-ch-ua' = '"Google Chrome";v="131", "Chromium";v="131", "Not_A Brand";v="24"',
+                'sec-ch-ua-mobile' = '?0',
+                'sec-ch-ua-platform' = "Windows")
