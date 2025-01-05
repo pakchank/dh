@@ -3,7 +3,7 @@
     "path": "C:/Users/user/Dropbox/2024 Fall/network_lecture/book/1_prerequisite.qmd",
     "project_path": "1_prerequisite.qmd",
     "type": "quarto_markdown",
-    "hash": "3656505360",
+    "hash": "0",
     "contents": "",
     "dirty": false,
     "created": 1735970232254.0,
@@ -15,19 +15,19 @@
         "tempName": "Untitled1",
         "source_window_id": "",
         "Source": "Source",
-        "cursorPosition": "205,55",
-        "scrollLine": "188",
+        "cursorPosition": "16,12",
+        "scrollLine": "0",
         "docOutlineVisible": "1",
         "rmdVisualCollapsedChunks": "",
         "rmdVisualModeLocation": "2:0",
-        "marks": "<:0,0\n>:51,0"
+        "marks": "<:0,0\n>:54,0"
     },
     "folds": "",
-    "lastKnownWriteTime": 1735980298,
+    "lastKnownWriteTime": 1736056062,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1735980298609,
+    "last_content_update": 1736056062494,
     "read_only": false,
     "read_only_alternatives": []
 }
