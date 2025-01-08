@@ -1,6 +1,6 @@
-# Tidy한 텍스트 분석
+# 1. Tidy한 텍스트 분석
 
-```{r}
+```{r warning=FALSE, message=FALSE, echo=FALSE}
 library(tidyverse)
 library(purrr)
 library(tidytext)

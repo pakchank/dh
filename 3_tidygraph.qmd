@@ -1,6 +1,6 @@
-# Tidy한 네트워크 분석
+# 2. Tidy한 네트워크 분석
 
-```{r}
+```{r warning=FALSE, message=FALSE, echo=FALSE}
 library(tidyverse)
 library(purrr)
 library(tidytext)
@@ -97,10 +97,10 @@ gTidy <- g |>
 #    pull()
 ```
 
-```{r}
+```{r warning=FALSE}
 gTidy |> 
     activate(edges) |>
-    filter(weight > 4) |>
+    filter(weight > 10) |>
     activate(nodes) |> 
     left_join(nodeAttr |>
                   filter(!(text %in% dupList)), by=c("name"="text")) |>
@@ -134,13 +134,13 @@ pair |>
 
 ```{r}
 graph_kd <- pair %>%
-  filter(n >= 10) %>%
+  filter(n >= 20) %>%
   as_tbl_graph(directed = F) %>%
   mutate(centrality = centrality_degree(),    # 연결 중심성
          group = as.factor(group_infomap()))  # 커뮤니티
 ```
 
-```{r}
+```{r warning=FALSE}
 graph_kd |>
     ggraph(layout = "fr") +      # 레이아웃
   geom_edge_link(color = "gray50",          # 엣지 색깔
