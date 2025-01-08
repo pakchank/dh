@@ -1,6 +1,6 @@
 # Tidy한 텍스트 분석
 
-```{r eval=FALSE}
+```{r}
 library(tidyverse)
 library(purrr)
 library(tidytext)
@@ -74,8 +74,11 @@ df <- bind_rows(list_big)
 ```
 
 ```{r eval=FALSE}
-df |>
-    filter(nchar(content) > 100)
+df <- df |>
+    filter(nchar(content) > 100) |>
+    group_by(bookId) |>
+    mutate(para=row_number()) |>
+    ungroup()
 ```
 
 ```{r}
@@ -119,6 +122,28 @@ tidydt |>
 
 ## ETRI NER을 이용한 방법.
 
+```{r}
+res <- POST(url="http://aiopen.etri.re.kr:8000/WiseNLU_spoken",
+            body='{"argument": {"text": "박찬경은 경북대학교 미디어커뮤니케이션학과 조교수 입니다.", "analysis_code": "ner"}}',
+            encode="raw",
+            add_headers(.headers=c("Content-Type" = "application/json; charset=UTF-8",
+                                   "Authorization"="45a48207-93d4-4d40-9b10-1db71ea2b3ce"))) 
+```
+
+```{r}
+sentences <- fromJSON(content(res, as="text", encoding='UTF-8'), simplifyVector=FALSE)$return_object$sentence
+```
+
+```{r}
+length(sentences)
+```
+```{r}
+1:length(sentences) |>
+    map(~sentences[[.x]]$NE) |>
+    map(~bind_rows(.x)) |>
+    bind_rows()
+```
+
 ```{r eval=FALSE}
 ner <- function(text) {
     body = paste0('{"argument": {"text": "', text, '", "analysis_code": "ner"}}')
@@ -130,6 +155,8 @@ ner <- function(text) {
     
     sentences <- fromJSON(content(res, as="text", encoding='UTF-8'), simplifyVector=FALSE)$return_object$sentence
     
+    #print(sentences)
+    
     out <- 1:length(sentences) |>
         map(~sentences[[.x]]$NE) |>
         map(~bind_rows(.x)) |>
@@ -140,9 +167,9 @@ ner <- function(text) {
 
 ner_para <- function(row){
     #print(row$TEXT)
-    nered <- ner(row$TEXT)
+    nered <- ner(row$content) # 데이터 변수명에 따라 이 부분 바꾸어주어야 함.
     nered$para <- row$para
-    nered$book <- row$book
+    nered$book <- row$bookId
     
     return(nered)
 }
@@ -151,8 +178,8 @@ ner_para <- function(row){
 ```{r eval=FALSE}
 list_large <- list()
 
-for (i in 1:1000){
-    list_large[[i]] <- ner_para(dt[i, ])
+for (i in 1:nrow(df)){
+    list_large[[i]] <- ner_para(df[i, ])
 }
 ```
 

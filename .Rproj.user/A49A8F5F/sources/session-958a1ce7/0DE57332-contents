@@ -1,6 +1,6 @@
 # Tidy한 네트워크 분석
 
-```{r eval=FALSE}
+```{r}
 library(tidyverse)
 library(purrr)
 library(tidytext)
@@ -10,21 +10,25 @@ library(networkD3)
 library(widyr)
 library(ggraph)
 library(glue)
-library(showtext)
-font_add_google(name = "Nanum Gothic", family = "nanumgothic")
-showtext_auto()
+#library(showtext)
+#font_add_google(name = "Nanum Gothic", family = "nanumgothic")
+#showtext_auto()
 ```
 
 ## NER 테그를 이용해 인물, 장소, 조직을 추출
 테그 레퍼런스: https://aiopen.etri.re.kr/guide/WiseNLU
-```{r eval=FALSE}
+```{r}
+dt_ner <- readRDS("dt_ner.rds")
+```
+
+```{r}
 dt_ner |>
     filter(!str_detect(type, "DT_|QT_|AM_|TI_|MT_|PT_")) |>
         #!(type %in% c("")))
     count(text, sort=T)
 ```
 
-```{r eval=FALSE}
+```{r}
 dt_cat <- dt_ner |> 
     filter(str_detect(type, "(^PS_NAME)|^(LC)|^(OG)")) |>
     mutate(cat = case_when(str_detect(type, "^PS_NAME") ~  "인물",
@@ -32,7 +36,7 @@ dt_cat <- dt_ner |>
                            str_detect(type, "^OG") ~ "조직"))
 ```
 
-```{r eval=FALSE}
+```{r}
 nodeAttr <- dt_cat |>
     group_by(text, cat) |>
     summarise(text=first(text), cat=first(cat)) |>
@@ -43,7 +47,7 @@ nodeAttr <- dt_cat |>
 #saveRDS(nodeAttr, "nodeAttr.rds")
 ```
 
-```{r eval=FALSE}
+```{r}
 dupList <- nodeAttr |>
     group_by(text) |>
     summarise(n = n()) |>
@@ -55,14 +59,14 @@ dupList <- nodeAttr |>
 #saveRDS(dupList, "dupList.rds")
 ```
 
-```{r eval=FALSE}
+```{r}
 nodeAttr |>
     filter(text %in% dupList)
 ```
 
 
 ## 그래프 데이터로 변환환
-```{r eval=FALSE}
+```{r}
 g <- dt_cat |>
     filter(!(text %in% dupList)) |>
     unite("bp", c("book", "para")) |>
@@ -76,13 +80,13 @@ g <- dt_cat |>
 is_weighted(g)
 ```
 
-```{r eval=FALSE}
+```{r}
 gTidy <- g |>
     as_tbl_graph()
 ```
 
-```{r eval=FALSE}
-saveRDS(gTidy, "gTidy.rds")
+```{r}
+#saveRDS(gTidy, "gTidy.rds")
 ```
 
 
@@ -93,7 +97,7 @@ saveRDS(gTidy, "gTidy.rds")
 #    pull()
 ```
 
-```{r eval=FALSE}
+```{r}
 gTidy |> 
     activate(edges) |>
     filter(weight > 4) |>
@@ -115,7 +119,7 @@ gTidy |>
 
 ```
 
-```{r eval=FALSE}
+```{r}
 pair <- dt_ner |>
     filter(!str_detect(type, "DT_|QT_|AM_|TI_|MT_|PT_")) |>
     pairwise_count(item = text, 
@@ -123,12 +127,12 @@ pair <- dt_ner |>
                    sort = T)
 ```
 
-```{r eval=FALSE}
+```{r}
 pair |>
     filter(item1 == "조선족")
 ```
 
-```{r eval=FALSE}
+```{r}
 graph_kd <- pair %>%
   filter(n >= 10) %>%
   as_tbl_graph(directed = F) %>%
@@ -136,7 +140,7 @@ graph_kd <- pair %>%
          group = as.factor(group_infomap()))  # 커뮤니티
 ```
 
-```{r eval=FALSE}
+```{r}
 graph_kd |>
     ggraph(layout = "fr") +      # 레이아웃
   geom_edge_link(color = "gray50",          # 엣지 색깔
@@ -156,7 +160,7 @@ https://youngwoos.github.io/Doit_textmining/05/05-co-occurrenceAnalysis.html#90
 
 ## `networkD3`를 이용한 인터랙리브 시각화
 
-```{r eval=FALSE}
+```{r}
 gig <- gTidy |> 
     activate(edges) |>
     filter(weight > 4) |>
@@ -170,7 +174,7 @@ gD3 <- gig |>
     igraph_to_networkD3(group=vertex_attr(gig)$cat)
 ```
 
-```{r eval=FALSE}
+```{r}
 forceNetwork(Links=gD3$links, Nodes=gD3$nodes,
              Source = 'source', Target = 'target', NodeID = 'name', Group = 'group')
 ```

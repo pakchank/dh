@@ -1,0 +1,5 @@
+"0","pair <- dt_ner |>"
+"0","    filter(!str_detect(type, ""DT_|QT_|AM_|TI_|MT_|PT_"")) |>"
+"0","    pairwise_count(item = text, "
+"0","                   feature = para,    # 다른 책의 같은 para일 수 있음 -> book도 같이 구분하도록 고쳐야 함!"
+"0","                   sort = T)"
