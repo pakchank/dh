@@ -7,5 +7,17 @@
   },
   "index.qmd": {
     "index.html": "bccf4511"
+  },
+  "2_tidytext.qmd": {
+    "2_tidytext.html": "93d5fd25"
+  },
+  "3_tidygraph.qmd": {
+    "3_tidygraph.html": "9d470514"
+  },
+  "4_shiny.qmd": {
+    "4_shiny.html": "e1d882b4"
+  },
+  "5_basic.qmd": {
+    "5_basic.html": "e2bf1598"
   }
 }

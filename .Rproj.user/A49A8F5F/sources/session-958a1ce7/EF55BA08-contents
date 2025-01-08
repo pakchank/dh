@@ -1,0 +1,110 @@
+# 웹앱을 이용한 시각화 공유
+
+```{r eval=FALSE}
+library(tidyverse)
+library(purrr)
+library(tidytext)
+library(tidygraph)
+library(igraph)
+library(networkD3)
+library(widyr)
+library(KoNLP)
+library(ggraph)
+library(readxl)
+library(beepr)
+library(httr)
+library(glue)
+library(jsonlite)
+library(shiny)
+library(showtext)
+font_add_google(name = "Nanum Gothic", family = "nanumgothic")
+showtext_auto()
+```
+
+`shiny` 프로젝트 만들기.
+
+다음과 같은 `app.R` 프로그램 만들기
+
+```{r eval=FALSE}
+
+library(shiny)
+library(bslib)
+library(tidyverse)
+library(tidygraph)
+library(igraph)
+library(networkD3)
+
+
+
+#dt_ner <- readRDS("dt_ner.rds")
+gTidy <- readRDS("../gTidy.rds")
+nodeAttr <- readRDS("../nodeAttr.rds")
+dupList <- readRDS("../dupList.rds")
+
+forceN <- function(thres) {
+    gig <- gTidy |> 
+        activate(edges) |>
+        filter(weight > thres) |>
+        activate(nodes) |> 
+        left_join(nodeAttr |>
+                      filter(!(text %in% dupList)), by=c("name"="text")) |>
+        mutate(degree = centrality_degree()) |>
+        filter(degree != 0) |>
+        as.igraph() 
+    gD3 <- gig |>
+        igraph_to_networkD3(group=vertex_attr(gig)$cat)
+    
+    out <- forceNetwork(Links=gD3$links, Nodes=gD3$nodes,
+                        Source = 'source', Target = 'target', NodeID = 'name', Group = 'group',
+                        zoom=TRUE,
+                        # layout
+                        linkDistance = 250,                                                 # link size, if higher, more space between nodes
+                        charge = -50,                                                       # if highly negative, more space betqeen nodes
+                        
+    )
+    
+    return(out)
+}
+
+
+# location algorithm은 바꿀 수 있을지...
+# zoom도 필요.
+# hosting한 후, iframe으로 넣기...
+# 참고자료 알려주기.
+
+# Define UI for application that draws a histogram
+ui <- fillPage(
+    page_sidebar(
+        title = "KODDAS DB 네트워크 시각화",
+        sidebar = sidebar( sliderInput("thres",
+                                       "Number of bins:",
+                                       min = 3,
+                                       max = 10,
+                                       value = 5)),
+        forceNetworkOutput("distPlot")
+    )
+)
+
+# Define server logic required to draw a histogram
+server <- function(input, output) {
+
+    output$distPlot <- renderForceNetwork({
+        # forceNetwork(Links=gD3$links, Nodes=gD3$nodes,
+        #              Source = 'source', Target = 'target', NodeID = 'name', Group = 'group',
+        #              zoom=TRUE,
+        #              # layout
+        #              linkDistance = 250,                                                 # link size, if higher, more space between nodes
+        #              charge = -50,                                                       # if highly negative, more space betqeen nodes
+        #              
+        # )
+        forceN(input$thres)
+            })
+}
+
+# Run the application 
+shinyApp(ui = ui, server = server)
+```
+
+웹에 올리기.
+
+<iframe> 이용해서 홈페이지에 embed하기.
