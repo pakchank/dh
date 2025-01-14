@@ -162,45 +162,33 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#r의-기초" id="toc-r의-기초" class="nav-link active" data-scroll-target="#r의-기초">R의 기초</a></li>
-  <li><a href="#r-프로그래밍-기초" id="toc-r-프로그래밍-기초" class="nav-link" data-scroll-target="#r-프로그래밍-기초">R 프로그래밍 기초</a>
+  <li><a href="#r의-기초" id="toc-r의-기초" class="nav-link active" data-scroll-target="#r의-기초">R의 기초</a>
   <ul class="collapse">
   <li><a href="#변수-함수-할당" id="toc-변수-함수-할당" class="nav-link" data-scroll-target="#변수-함수-할당">변수, 함수, 할당</a></li>
   <li><a href="#데이터의-타입과-구조" id="toc-데이터의-타입과-구조" class="nav-link" data-scroll-target="#데이터의-타입과-구조">데이터의 타입과 구조</a>
   <ul class="collapse">
   <li><a href="#데이터-타입" id="toc-데이터-타입" class="nav-link" data-scroll-target="#데이터-타입">데이터 타입</a></li>
   <li><a href="#데이터-구조" id="toc-데이터-구조" class="nav-link" data-scroll-target="#데이터-구조">데이터 구조</a></li>
-  <li><a href="#리스트list" id="toc-리스트list" class="nav-link" data-scroll-target="#리스트list">(2) 리스트(list)</a></li>
-  <li><a href="#데이터프레임data-frame" id="toc-데이터프레임data-frame" class="nav-link" data-scroll-target="#데이터프레임data-frame">(3) 데이터프레임(Data Frame)</a></li>
   </ul></li>
   <li><a href="#서브세트subset" id="toc-서브세트subset" class="nav-link" data-scroll-target="#서브세트subset">서브세트(Subset)</a>
   <ul class="collapse">
-  <li><a href="#벡터" id="toc-벡터" class="nav-link" data-scroll-target="#벡터">벡터</a></li>
-  <li><a href="#리스트" id="toc-리스트" class="nav-link" data-scroll-target="#리스트">리스트</a></li>
-  <li><a href="#데이터프레임" id="toc-데이터프레임" class="nav-link" data-scroll-target="#데이터프레임">데이터프레임</a></li>
+  <li><a href="#벡터의-경우" id="toc-벡터의-경우" class="nav-link" data-scroll-target="#벡터의-경우">벡터의 경우</a></li>
+  <li><a href="#리스트의-경우" id="toc-리스트의-경우" class="nav-link" data-scroll-target="#리스트의-경우">리스트의 경우</a></li>
+  <li><a href="#데이터프레임의-경우" id="toc-데이터프레임의-경우" class="nav-link" data-scroll-target="#데이터프레임의-경우">데이터프레임의 경우</a></li>
   </ul></li>
   <li><a href="#조건predicate" id="toc-조건predicate" class="nav-link" data-scroll-target="#조건predicate">조건(Predicate)</a></li>
-  </ul></li>
   <li><a href="#tidyverse의-이해" id="toc-tidyverse의-이해" class="nav-link" data-scroll-target="#tidyverse의-이해">Tidyverse의 이해</a>
-  <ul class="collapse">
-  <li><a href="#패키지-개념-이해하기" id="toc-패키지-개념-이해하기" class="nav-link" data-scroll-target="#패키지-개념-이해하기">패키지 개념 이해하기</a>
-  <ul class="collapse">
-  <li><a href="#패키지-사용시-주의사항-설치-로드" id="toc-패키지-사용시-주의사항-설치-로드" class="nav-link" data-scroll-target="#패키지-사용시-주의사항-설치-로드">패키지 사용시 주의사항: 설치? 로드?</a></li>
-  </ul></li>
-  <li><a href="#tidyverse-처음-사용하기" id="toc-tidyverse-처음-사용하기" class="nav-link" data-scroll-target="#tidyverse-처음-사용하기">Tidyverse 처음 사용하기</a>
   <ul class="collapse">
   <li><a href="#서브세트" id="toc-서브세트" class="nav-link" data-scroll-target="#서브세트">서브세트</a></li>
   <li><a href="#파이프" id="toc-파이프" class="nav-link" data-scroll-target="#파이프">파이프</a></li>
-  <li><a href="#서브세트와-파이프를-동시에" id="toc-서브세트와-파이프를-동시에" class="nav-link" data-scroll-target="#서브세트와-파이프를-동시에">(3) 서브세트와 파이프를 동시에!</a></li>
-  </ul></li>
+  <li><a href="#서브세트와-파이프를-동시에" id="toc-서브세트와-파이프를-동시에" class="nav-link" data-scroll-target="#서브세트와-파이프를-동시에">서브세트와 파이프를 동시에!</a></li>
   </ul></li>
   <li><a href="#프로젝트와-노트북-기사작성과-코딩을-동시에" id="toc-프로젝트와-노트북-기사작성과-코딩을-동시에" class="nav-link" data-scroll-target="#프로젝트와-노트북-기사작성과-코딩을-동시에">프로젝트와 노트북: 기사작성과 코딩을 동시에!</a>
   <ul class="collapse">
   <li><a href="#프로젝트" id="toc-프로젝트" class="nav-link" data-scroll-target="#프로젝트">프로젝트</a></li>
   <li><a href="#quarto-노트북" id="toc-quarto-노트북" class="nav-link" data-scroll-target="#quarto-노트북">Quarto 노트북</a></li>
-  <li><a href="#노트북-생성하기" id="toc-노트북-생성하기" class="nav-link" data-scroll-target="#노트북-생성하기">노트북 생성하기</a></li>
-  <li><a href="#노트북-이용하기" id="toc-노트북-이용하기" class="nav-link" data-scroll-target="#노트북-이용하기">노트북 이용하기</a></li>
   <li><a href="#마크다운-문법" id="toc-마크다운-문법" class="nav-link" data-scroll-target="#마크다운-문법">마크다운 문법</a></li>
+  </ul></li>
   </ul></li>
   </ul>
 </nav>
@@ -213,12 +201,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <section id="r의-기초" class="level1">
 <h1>R의 기초</h1>
-</section>
-<section id="r-프로그래밍-기초" class="level1">
-<h1>R 프로그래밍 기초</h1>
-<p>이제 여러분들은 R을 사용해 기사를 작성할 기본적인 준비가 되었습니다. 그러면 이제 R을 배워 보아야겠지요? 이 장에서는 여러분들이 R 뿐만 아니라, 이전에 프로그래밍을 접한 적인 없었다는 것을 전제하고 R의 기초 문법, 그 중에서 앞으로 본 교재 내용을 학습하는데 최소한으로 필요한 만큼만을 설명하려고 합니다. <strong>만약 여러분이 프로그래밍이나 R에 대한 기초적인 지식이 있다면, 이 장을 읽지 않거나, 아니면 빠르게 훑어보기만 해도 다음 장부터 나오는 내용을 이해하는데 큰 문제가 없을 것입니다.</strong></p>
-<p>프로그래밍에 익숙지 않은 분들은 컴퓨터 언어를 새로 배워야 한다는 것이 대단히 부담스러울 수도 있지만, 사실 R의 문법은 그 어떤 프로그래밍 언어보다도 일반인들에게 직관적이고, 심하게 이야기하면 약간 복잡한 계산기를 다루는 느낌이라고 생각하셨도 좋습니다. 여기서는 R을 적어도 계산기처럼 사용할 수 있도록 해 주는 기초 문법들을 몇 가지 배울 것입니다. 사실 우리는 <code>R</code> 문법 그 자체를 깊게 배우지는 않을 것인데요, 곧 <code>tidyverse</code>라는 일종의 <em>대체문법</em>을 이용할 것이기 때문이죠. <code>tidyverse</code>는 여러가지 이용의 편리함 때문에, <code>R</code>의 원래 문법을 사실상 대체한 표준처럼 되어 버렸기 때문에, <code>R</code> 고유의 문법을 깊이 배우지 않는다고 하더라도 너무 걱정할 필요는 없습니다.</p>
-<p>그러나, 아무리 우리가 <code>tidyverse</code> 문법을 사용할 것이라고 하더라도 여전히 <code>R</code>을 사용하는 것은 변함이 없기에 몇 가지 기초 문법은 익숙하게 알고 있어야 합니다. 다행이도, 그 종류가 많지는 않습니다.</p>
+<p>이제 여러분들은 R을 사용할 준비가 되었습니다. 이 장에서는 여러분들이 R 뿐만 아니라, 이전에 프로그래밍을 접한 적인 없었다는 것을 전제하고 R의 기초 문법, 그 중에서 앞으로 본 교재 내용을 학습하는데 최소한으로 필요한 만큼만을 설명하려고 합니다. <strong>만약 여러분이 프로그래밍이나 R에 대한 기초적인 지식이 있다면, 이 장을 읽지 않거나, 아니면 빠르게 훑어보기만 해도 다음 장부터 나오는 내용을 이해하는데 큰 문제가 없을 것입니다.</strong></p>
+<p>프로그래밍에 익숙지 않은 분들은 컴퓨터 언어를 새로 배워야 한다는 것이 대단히 부담스러울 수도 있지만, 사실 R의 문법은 그 어떤 프로그래밍 언어보다도 일반인들에게 직관적이고, 심하게 이야기하면 약간 복잡한 계산기를 다루는 느낌이라고 생각하셔셔도 좋습니다. 여기서는 R을 적어도 계산기처럼 사용할 수 있도록 해 주는 기초 문법들을 몇 가지 배울 것입니다. 사실 우리는 <code>R</code> 문법 그 자체를 깊게 배우지는 않을 것인데요, 곧 <code>tidyverse</code>라는 일종의 <em>대체문법</em>을 이용할 것이기 때문이죠. <code>tidyverse</code>는 여러가지 이용의 편리함 때문에, <code>R</code>의 원래 문법을 사실상 대체한 표준처럼 되어 버렸기 때문에, <code>R</code> 고유의 문법을 깊이 배우지 않는다고 하더라도 너무 걱정할 필요는 없습니다.</p>
+<p>그러나, 아무리 우리가 <code>tidyverse</code> 문법을 사용할 것이라고 하더라도 여전히 <code>R</code>을 사용하는 것은 변함이 없기에 몇 가지 기초 문법은 익숙하게 알고 있어야 합니다. 다행히도, 그 종류가 많지는 않습니다.</p>
 <section id="변수-함수-할당" class="level2">
 <h2 class="anchored" data-anchor-id="변수-함수-할당">변수, 함수, 할당</h2>
 <p>R의 작동 방식을 이해하기 위해서, 먼저 컴퓨터가 작동하는 방식에 대해서 간단하게만 복습해 봅시다. 컴퓨터에 데이터를 저장되는 곳은 크게 세 군데가 있습니다.</p>
@@ -352,9 +337,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>위에서 보듯 <code>c()</code>라는 함수를 이용해서 여러 개의 값을 만들 수 있습니다. 또 값을 변수에 <em>할당</em>하는데 사용했던 <code>&lt;-</code> 연산자를 이용해 벡터 전체를 하나의 변수에 할당할 수도 있습니다. 위의 예에서 <code>vecNum</code>은 <code>numeric</code> 데이터 타입만을 가지고 있는 벡터이지만, <code>vecChar</code>의 경우에는 <code>character</code> 타입으로만 이루어진 벡터입니다.</p>
 </section>
-</section>
-<section id="리스트list" class="level3">
-<h3 class="anchored" data-anchor-id="리스트list">(2) 리스트(list)</h3>
+<section id="리스트list" class="level4">
+<h4 class="anchored" data-anchor-id="리스트list">(2) 리스트(list)</h4>
 <p>리스트는 ‘키(key)’라고 불리는 데이터의 이름과 그에 상응하는 ’값(value)’ 사이의 연결로 표현되는 데이터 구조 입니다. 이렇게 말하면 조금 난해하지만, 예를 보면 간단합니다.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>persons <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">id =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>),</span>
@@ -381,8 +365,8 @@ $height
 </div>
 <p>위의 예에서 바로 알 수 있듯이 <code>$</code> 연산자는 리스트에서 특정 키에 해당하는 값을 부르기 위한 역할을 합니다. 당장은 리스트 보다 벡터를 자주 사용하게 되겠지만, 곧 리스트가 유용한 경우가 자주 발생하게 됩니다.</p>
 </section>
-<section id="데이터프레임data-frame" class="level3">
-<h3 class="anchored" data-anchor-id="데이터프레임data-frame">(3) 데이터프레임(Data Frame)</h3>
+<section id="데이터프레임data-frame" class="level4">
+<h4 class="anchored" data-anchor-id="데이터프레임data-frame">(3) 데이터프레임(Data Frame)</h4>
 <p>데이터 프레임은 우리가 잘 알고 있는 표(table)를 의미합니다. 예컨대 위에서 사용한 리스트의 예를 데이터 프레임으로 만들어 볼까요?</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">id =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>),</span>
@@ -399,11 +383,12 @@ $height
 <p>우리에게 익숙한 테이블 모양으로 출력이 된다는 것을 알 수 있습니다. 예컨대 데이터로 엑셀 파일이 있어 이를 <code>R</code>을 이용해 분석하려 한다면, 이렇게 데이터프레임으로 인식시키는 것이 가장 직관적이겠지요. 데이터 프레임은 여러분들이 가장 자주 보게 될 데이터 구조 입니다.</p>
 </section>
 </section>
+</section>
 <section id="서브세트subset" class="level2">
 <h2 class="anchored" data-anchor-id="서브세트subset">서브세트(Subset)</h2>
 <p>앞서 리스트에 대해 이야기 하면서 <code>$</code> 연산자를 통해 데이터의 일부만 보는 작업의 예를 보았습니다. 이렇게 데이터의 일부만 보는 행위를 서브세트라고 합니다. 서브세트를 분석 목적에 맞게 잘 하는 것은 데이터 과학에서 가장 중요하고, 자주 하게 되는 테크닉 입니다. 우리는 여기서 배우는 서브세트 기술 보다 조금 더 명료한 방법을 앞으로 사용하게 되겠지만, 이를 100% 피해갈 수는 없으므로, 가장 기초적인 것만 보도록 하겠습니다.</p>
-<section id="벡터" class="level3">
-<h3 class="anchored" data-anchor-id="벡터">벡터</h3>
+<section id="벡터의-경우" class="level3">
+<h3 class="anchored" data-anchor-id="벡터의-경우">벡터의 경우</h3>
 <p>일단 벡터의 서브세트를 이해하기 위해 다음과 같은 예를 보겠습니다.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">8</span>)</span>
@@ -427,8 +412,8 @@ $height
 </div>
 </div>
 </section>
-<section id="리스트" class="level3">
-<h3 class="anchored" data-anchor-id="리스트">리스트</h3>
+<section id="리스트의-경우" class="level3">
+<h3 class="anchored" data-anchor-id="리스트의-경우">리스트의 경우</h3>
 <p>이번엔 아까 썼던 것과 같은 리스트 예를 사용해 보겠습니다.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>persons <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">id =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>),</span>
@@ -459,8 +444,8 @@ $height
 </div>
 <p>결과에서 보는 것처럼, <code>persons[[2]]</code>는 <code>persons</code>라는 <code>list</code>의 두번째 키/값의 쌍에서 값만 되돌려달라는 의미입니다. 따라서 되돌려받는 값은 값에 해당하는 벡터, <code>c("Male", "Female", "Female")</code>이 됩니다. 반면, <code>persons[2]</code>는 두 번째 키/값의 쌍 전체를 돌려달라는 돌려달라는 의미이므로, 반환값 역시 리스트인 <code>list(gender = c("Male", "Female", "Female"))</code> 형태가 됩니다. 따라서, <code>persons[2:3]</code>과 같은 표현도 자연스럽게 정의가 되겠지요.</p>
 </section>
-<section id="데이터프레임" class="level3">
-<h3 class="anchored" data-anchor-id="데이터프레임">데이터프레임</h3>
+<section id="데이터프레임의-경우" class="level3">
+<h3 class="anchored" data-anchor-id="데이터프레임의-경우">데이터프레임의 경우</h3>
 <p>사실 여러분은 데이터프레임을 서브세트 할 일이 가장 많을 것입니다. 사실 데이터프레임을 서브세트 하는 방식은 리스트와 매우 유사합니다. 아까 만든 <code>df</code> 데이터프레임을 생각해 보면,</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>gender</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -570,65 +555,21 @@ $height
 </div>
 </div>
 </section>
-</section>
-<section id="tidyverse의-이해" class="level1">
-<h1>Tidyverse의 이해</h1>
+<section id="tidyverse의-이해" class="level2">
+<h2 class="anchored" data-anchor-id="tidyverse의-이해">Tidyverse의 이해</h2>
 <p>앞서 <code>R</code>이 기본적으로 제공하는 간단한 문법을 배워보았는데요, 그러면서도 앞으로 해당 기본 문법보다는 일종의 ‘대체 문법’을 사용할 것이라는 언급을 여러번 했습니다. 그 대체문법이 이 장에서 배울 “Tidyverse” 문법 입니다. 사실 “Tidyverse”가 대체문법이라고 하는 데에는 좀 어폐가 있습니다. “Tidyverse” 문법을 따른다고 하더라도, <code>R</code>이 가지고 있는 변수, 함수, 데이터 타입, 데이터 구조 등이 ’거의’ 그대로 사용되기 때문입니다. 다만, 세브세팅이나, 새로운 변수의 생성, 긴 코드의 작성을 편하고 일관되며, 가독성 있게 만들기 위해서 도입된 일종의 코딩 ‘스타일’ 또는 ‘패러다임’ 이라고 부르는 것이 더 나을지도 모르겠습니다.</p>
-<p>하지만, 그러한 ’스타일’을 위해서는 <code>R</code>이 기본적으로 제공하지 않는 몇 가지 함수가 필요합니다. <code>R</code>이 기본적으로 제공하지 않는다면, 어떻게 한다는 것일까요? 이를 위해서 우리는 ’패키지’라는 개념부터 알아야 합니다.</p>
-<section id="패키지-개념-이해하기" class="level2">
-<h2 class="anchored" data-anchor-id="패키지-개념-이해하기">패키지 개념 이해하기</h2>
-<p><code>R</code>뿐만 아니라, 많은 다른 언어에서 ’패키지’라고 하는 것은 쉽게 말하자면 유용한 함수들의 묶음을 의미합니다. 기본 <code>R</code>을 설계한 사람들이 <code>R</code>에 내장해두지는 않았지만, 특정 목적을 위해서는 유용함 도구들이 묶여서 ’패키지’로 제공된다고 생각하면 되겠습니다. 비유하자면, 여러분들이 매일 사용하는 ’카카오톡’이 <code>R</code>이라고 해 보죠. 카카오톡 안에는 기본적인 채팅 기능 안에도 수많은 다른 기능들이 있지요? 선물을 주고 받을 수도 있고, 음식을 주문할 수도 있고, 쇼핑을 할 수도 있습니다. 물론 모든 이용자들이 이 기능들을 모두 사용하지는 않지요. 하지만, 어떤 사람들은 자주 사용합니다. 이러한 세부 기능에 해당 하는 일종의 카카오톡 안의 ’미니 프로그램’을 <code>R</code>에서는 패키지라고 부른다고 생각하면 되겠습니다.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="img/kakaotalk_miniprogram.jpg" class="img-fluid figure-img" style="width:50.0%"></p>
-<figcaption>카카오 미니프로그램</figcaption>
-</figure>
-</div>
-<p><code>R</code>에서 패키지를 부르는 방법은 다음과 같습니다.</p>
+<p><code>Tidyverse</code> 문법을 이용하기 위해서는 <code>tidyverse</code> 패키지를 로드해야 합니다.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stats)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p><code>library()</code>는 괄호가 있으니, 패키지를 부르는 ’함수’일 것이고, 괄호 안에는 부르고 싶은 패키지의 이름을 <strong>따옴표 없이</strong> 쓰면 됩니다. 여기서는 <code>R</code>을 설치할 때 같이 설치되는 <code>stats</code>라는 패키지를 불렀습니다.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="img/package.png" class="img-fluid figure-img"></p>
-<figcaption>패키지 종류</figcaption>
-</figure>
-</div>
-<p>그런데 <code>R</code>이 설치될 때 모든 패키지가 함께 설치되는 것은 아닙니다. 사실 그렇지 않은 패키지가 훨씬 많지요. 심지어 패키지는 여러분도 만들 수 있습니다. 그렇게 개인이 여러 목적으로 만든 비공식 패키지까지 포함한다면, 세상에는 무한히 많은 <code>R</code> 패키지들이 있습니다. 하지만, 우리가 자주 사용하게될 패키지는 <code>R</code>개발진들의 관리 감독 아래 있는 ‘공식’ 패키지들입니다. 공식 패키지이지만, <code>R</code>과 함께 설치되지 않는 패키지를 설치하기 위해서는 다음과 같은 함수를 실행시키면 됩니다 (여기서는 따옴표가 필요합니다!).</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"tidyverse"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>예, 우리가 사용한다고 했던 바로 그 <code>tidyverse</code> 입니다. <code>tidyverse</code> 문법을 이용하기 위해서 몇 가지 추가적인 함수가 필요하다고 했지요? 이렇게 설치된 <code>tidyverse</code> 패키지 안에 우리가 사용하고자 하는 바로 그 함수들이 포함되어 있습니다.</p>
-<p>물론, 설치만 한다고 해서 바로 이 패키지를 사용할 수 있는 것은 아닙니다. 아까 <code>stats</code> 패키지의 예에서처럼, <code>tidyverse</code> 패키지도 다음과 같이 불러주어야 합니다.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>이 함수를 실행시키면 <code>tidyverse</code> 문법을 사용할 준비가 된 것입니다.</p>
-<section id="패키지-사용시-주의사항-설치-로드" class="level3">
-<h3 class="anchored" data-anchor-id="패키지-사용시-주의사항-설치-로드">패키지 사용시 주의사항: 설치? 로드?</h3>
-<p>방금 <code>tidyverse</code> 패키지를 설치하고 불러왔는데요, 여기서 패키지를 ’설치’한다는 것과 ’불러온다’는 것의 의미에 대해 잠깐 생각해볼 필요가 있습니다.</p>
-<p>여러분이 일상적으로 윈도우 또는 맥OS 상에서 어떤 소프트웨어를 ‘설치’하면 그것은 어디에 저장되었다는 것을 의미하나요? 당연히 HDD, SSD와 같은 ’저장장치’ 입니다. 그래야, 컴퓨터를 껐다 다시 키더라도, 다시 ’설치’할 필요가 없을테니까요. <code>tidyverse</code> 패키지를 설치했다는 것도 비슷한 의미입니다. 설치한 패키지는 저장장치 어디엔가 저장되어 있습니다.</p>
-<blockquote class="blockquote">
-<p><em>따라서, 설치는 한 번 했다면 다시 할 필요가 없습니다.</em></p>
-</blockquote>
-<p>그런데 여러분 설치한 소프트웨어가 항상 켜져있나요? 물론 아닙니다. 그 소프트웨어를 실행시켜야지요. 실행시킨다는 것은 뭘까요? 여러 의미가 있지만, 가장 기본적으로는 저장장치에 설치되어 있는 해당 프로그램을 컴퓨터 메모리 상에 ’불러온다’는 것입니다. 가끔 여러분들 너무 많은 소프트웨어를 동시에 열어두면 컴퓨터가 느려져서 몇몇 사용하지 않는 프로그램을 꺼야했던 경험이 있을 것입니다. 프로그램을 껐다는 것은 반대로 메모리에서 지운다는 것을 의미하겠지요. 따라서 메모리에 여유 공간을 조금 확보하려고 프로그램을 끄는 것입니다. 이렇게 프로그램을 켠다는 것은 <code>R</code> 패키지로 치면 패키지를 로드하는 과정과 유사합니다.</p>
-<p>아까의 예에서처럼 <code>library(tidyverse)</code>라는 함수를 실행시키면, 저장장치에 저장되어 있던 <code>tidyverse</code> 패키지가 메모리로 불러와집니다. 그런데 메모리는 어떤 특성을 가지고 있었나요? 컴퓨터를 꺼도, 해당 정보에 할당된 이름이 사라져도, 메모리에서 언제든 사라질 수 있습니다. 이것은 무슨 이야기일까요? 여러분들이 <code>Rstudio</code>를 끄는 순간, 또는 <code>Rstudio</code> 안에서 다른 프로젝트로 이동하는 순간, 불러왔던 패키지는 메모리에 존재하지 않는 것이 됩니다. 그러니,</p>
-<blockquote class="blockquote">
-<p>패키지를 불러오는 것은 <code>Rstudio</code>를 새로 켤 때마다, 또는 새로운 프로젝트로 이동할 때마다, 매번 다시 해야 합니다!</p>
-</blockquote>
-<p>또 한 가지, 여러분들에게 당장 자주 일어나지는 않을 일이지만, 여러 개의 패키지를 로드해서 사용하다보면 간혹 생기는 문제가 있습니다. 바로 다른 두 개의 패키지가 하나의 함수명을 공유하고 있는 경우 입니다. 예컨대, <code>MASS</code>라는 패키지에도 <code>select()</code>라는 함수가 있고, <code>tidyverse</code> 패키지에도 <code>select()</code> 함수가 있습니다. 기능도, 문법도 완전히 다르지요. 따라서, 후자를 생각하고 <code>select()</code> 함수를 썼다가 에러가 발생하는 경우가 있습니다. 여러 방법이 있지만, 이럴 때에는 <code>tidyverse::select()</code>라고 써 주세요. 그러면, <code>tidyverse</code> 패키지에 속하는 <code>select()</code> 함수를 사용하게 됩니다.</p>
-</section>
-</section>
-<section id="tidyverse-처음-사용하기" class="level2">
-<h2 class="anchored" data-anchor-id="tidyverse-처음-사용하기">Tidyverse 처음 사용하기</h2>
-<p>이제 겨우 <code>tidyverse</code> 문법을 사용할 준비가 되었습니다. 물론 <code>tidyverse</code> 패키지의 설치와 불러오기를 잊지 마세요! 사실 <code>tidyverse</code>는 많은 다양한 코딩 방식, 시각화 방식, 데이터 타입과 구조에 대한 재정의 등을 포함한 광범위한 코딩 패러다임인데요, 우리는 학습 목적상 다음 두 가지에만 주목하려고 합니다.</p>
+<p><strong>우리는 이 강의 전반에 걸쳐 <code>tidyverse</code>를 사용할 것이므로, 위의 함수는 항상 제일 먼저 실해되어야 합니다.</strong></p>
+<p>사실 <code>tidyverse</code>는 많은 다양한 코딩 방식, 시각화 방식, 데이터 타입과 구조에 대한 재정의 등을 포함한 광범위한 코딩 패러다임인데요, 여기서는 학습 목적상 다음 두 가지에만 주목하려고 합니다.</p>
 <ol type="1">
 <li>서브세트</li>
 <li>파이프(pipe)</li>
 </ol>
 <p>그 외에 <code>tidyverse</code>의 다른 요소들은 학습이 심화되면서 차차 마주하게 될 것입니다.</p>
-<p>첫번째, 서브세트는 우리가 앞장에서 이미 보았던 서브세트, 즉, 데이터의 일부만을 취하는 방법입니다. <code>R</code>은 이미 좋은 서브세트 기능을 제공하지만, 앞서 말했듯 해당 문법이 가독성이 아주 좋지는 않다고 했습니다. 따라서 <code>tidyverse</code>에서 제공하는 방식의 서브세트를 이용할 것입니다. 두번째 ’파이프’는 긴 코드를 연결해서 간결하게 작성하는데 필요한 일종의 코드 작성법 입니다. 차례차례 살펴보지요.</p>
+<p>첫번째, 서브세트는 우리가 앞에서 이미 보았던 서브세트, 즉, 데이터의 일부만을 취하는 방법입니다. <code>R</code>은 이미 좋은 서브세트 기능을 제공하지만, 앞서 말했듯 해당 문법이 가독성이 아주 좋지는 않다고 했습니다. 따라서 <code>tidyverse</code>에서 제공하는 방식의 서브세트를 이용할 것입니다. 두번째 ’파이프’는 긴 코드를 연결해서 간결하게 작성하는데 필요한 일종의 코드 작성법 입니다. 차례차례 살펴보지요.</p>
 <section id="서브세트" class="level3">
 <h3 class="anchored" data-anchor-id="서브세트">서브세트</h3>
 <p><code>tidyverse</code>의 서브세트는 기본적으로 <code>R</code> 데이터구조 중 데이터프레임에 적용되는 것입니다. 벡터나 리스트를 사용할 때에는 기본 <code>R</code> 문법을 사용하면 됩니다. 데이터프레임을 서브세트 하는 방법에는 행을 취하는 방법과 열을 취하는 방법이 있었습니다. 다음을 기억해 두세요. <code>tidyverse</code>에서는:</p>
@@ -638,10 +579,10 @@ $height
 </ol>
 <p>이것만 이해하면 거의 모든 것을 이해한 것과 다름 없습니다. 일단, <code>tidyverse</code> 서브세트는 데이터프레임에 관한 것이라고 했으니, 일단 앞서 이미 이용했던 것고 같은 데이터 프레임을 다시 만들어 예제 데이터로 이용해 보지요.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">id =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>),</span>
-<span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a>                 <span class="at">gender =</span> <span class="fu">c</span>(<span class="st">"Male"</span>, <span class="st">"Female"</span>, <span class="st">"Female"</span>),</span>
-<span id="cb66-3"><a href="#cb66-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">height =</span> <span class="fu">c</span>(<span class="dv">173</span>, <span class="dv">165</span>, <span class="dv">170</span>))</span>
-<span id="cb66-4"><a href="#cb66-4" aria-hidden="true" tabindex="-1"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">id =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>),</span>
+<span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a>                 <span class="at">gender =</span> <span class="fu">c</span>(<span class="st">"Male"</span>, <span class="st">"Female"</span>, <span class="st">"Female"</span>),</span>
+<span id="cb64-3"><a href="#cb64-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">height =</span> <span class="fu">c</span>(<span class="dv">173</span>, <span class="dv">165</span>, <span class="dv">170</span>))</span>
+<span id="cb64-4"><a href="#cb64-4" aria-hidden="true" tabindex="-1"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  id gender height
 1  1   Male    173
@@ -651,7 +592,7 @@ $height
 </div>
 <p>열을 취할 때는 <code>select()</code> 함수와 열의 이름을 사용한다고 했으므로, 다음과 같이 씁니다.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(df, gender)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(df, gender)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  gender
 1   Male
@@ -661,7 +602,7 @@ $height
 </div>
 <p>즉, <code>select()</code> 함수의 첫번째 인수는 서브세트의 대상이 될 데이터프레임(<code>df</code>), 두번째 인수는 거기서 선택할 열의 이름(<code>gender</code>)입니다. 그런데, 사실 복수의 열을 선택할 수도 있습니다.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb70"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(df, gender, height)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(df, gender, height)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  gender height
 1   Male    173
@@ -672,7 +613,7 @@ $height
 <p>즉, 인수로 열의 이름을 그냥 나열하면 된다는 것입니다.</p>
 <p>행을 취할 때는 <code>filter()</code> 함수와 행을 취할 조건을 사용한다고 했습니다. ’조건’이라는 말을 앞장에서 보았지요? 바로 <code>TRUE</code>, <code>FALSE</code>를 뱉어내는 <code>R</code>에게 질문하는 방식이라고 설명했던 바로 그 조건 입니다. 따라서, 키가 170이 넘는 사람에 관한 행만을 취하고 싶다면, 다음과 같이 쓰면 됩니다.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb72"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(df, height <span class="sc">&gt;=</span> <span class="dv">170</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb70"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(df, height <span class="sc">&gt;=</span> <span class="dv">170</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  id gender height
 1  1   Male    173
@@ -686,7 +627,7 @@ $height
 </blockquote>
 <p>이제 다음과 같은 예를 보세요.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb74"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(df, height <span class="sc">&gt;=</span> <span class="dv">170</span> <span class="sc">&amp;</span> gender<span class="sc">==</span><span class="st">"Female"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb72"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(df, height <span class="sc">&gt;=</span> <span class="dv">170</span> <span class="sc">&amp;</span> gender<span class="sc">==</span><span class="st">"Female"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  id gender height
 1  3 Female    170</code></pre>
@@ -694,7 +635,7 @@ $height
 </div>
 <p>이것은 여성’이고(AND)’ 키가 170 이상인 사람에 해당하는 행을 돌려달라는 것이겠지요? 반면,</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb76"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(df, height <span class="sc">&gt;=</span> <span class="dv">170</span> <span class="sc">|</span> gender<span class="sc">==</span><span class="st">"Female"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb74"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(df, height <span class="sc">&gt;=</span> <span class="dv">170</span> <span class="sc">|</span> gender<span class="sc">==</span><span class="st">"Female"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  id gender height
 1  1   Male    173
@@ -716,37 +657,37 @@ $height
 <p>이 간단한 기호가 어떻게 긴 코드를 작성하는데 도움을 준다는 것일까요?</p>
 <p>위의 그림에서 볼 수 있는 것처럼, 파이프는 함수의 <strong>첫 번째 인수</strong>를 <strong>함수의 왼쪽</strong>에 쓸 수 있게 해줍니다. 이제 데이터에 함수를 두 번 연속적으로 적용해야 하는 경우를 생각해 볼까요? 일반적인 문법에서는 우리가 중학교 수학 시간에 배운 것과 같이 다음과 같이 쓰면 됩니다.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb78"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb78-1"><a href="#cb78-1" aria-hidden="true" tabindex="-1"></a><span class="fu">do_this_next</span>(<span class="fu">do_this_first</span>(data))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb76"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a><span class="fu">do_this_next</span>(<span class="fu">do_this_first</span>(data))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>이를 조금 풀어서 설명하면, 원 데이터(<code>data</code>)에 <code>do_this_first()</code> 함수를 먼저 적용하고, 그 결과에 <code>do_this_next()</code> 함수를 적용하는 것이지요. 물론 이렇게 써도 아무 문제가 없습니다. 하지만, 이런 방법에는 큰 문제가 있습니다. 바로 코드를 <em>오른쪽에서 왼쪽으로</em> 읽어야 한다는 것이지요. 이는 우리가 자연스럽게 글을 읽는 방식과 반대입니다. 사실, 이렇게 함수가 두 개 뿐이라면 큰 문제가 아니겠지만, 함수가 더 많아지면 가독성이 더욱 떨어집니다.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb79"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a><span class="fu">finally_do_this</span>(<span class="fu">then_do_this</span>(<span class="fu">do_this_next</span>(<span class="fu">do_this_first</span>(data))))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb77"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a><span class="fu">finally_do_this</span>(<span class="fu">then_do_this</span>(<span class="fu">do_this_next</span>(<span class="fu">do_this_first</span>(data))))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>현실적으로는 함수를 십수개 차례대로 적용해야 하는 경우도 많으니, 이러한 방식의 코드는 나중에 스스로가 리뷰하기도 어려울 뿐더러, 협업 상황이라면 상황은 더욱 악화됩니다. 그래서 전통적으로는 이런 방식의 코드를 많이 사용해 왔습니다.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb80"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb80-1"><a href="#cb80-1" aria-hidden="true" tabindex="-1"></a>data2 <span class="ot">&lt;-</span> <span class="fu">do_this_first</span>(data)</span>
-<span id="cb80-2"><a href="#cb80-2" aria-hidden="true" tabindex="-1"></a>data3 <span class="ot">&lt;-</span> <span class="fu">do_this_next</span>(data2)</span>
-<span id="cb80-3"><a href="#cb80-3" aria-hidden="true" tabindex="-1"></a>data4 <span class="ot">&lt;-</span> <span class="fu">then_do_this</span>(data3)</span>
-<span id="cb80-4"><a href="#cb80-4" aria-hidden="true" tabindex="-1"></a><span class="fu">finally_do_this</span>(data4)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb78"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb78-1"><a href="#cb78-1" aria-hidden="true" tabindex="-1"></a>data2 <span class="ot">&lt;-</span> <span class="fu">do_this_first</span>(data)</span>
+<span id="cb78-2"><a href="#cb78-2" aria-hidden="true" tabindex="-1"></a>data3 <span class="ot">&lt;-</span> <span class="fu">do_this_next</span>(data2)</span>
+<span id="cb78-3"><a href="#cb78-3" aria-hidden="true" tabindex="-1"></a>data4 <span class="ot">&lt;-</span> <span class="fu">then_do_this</span>(data3)</span>
+<span id="cb78-4"><a href="#cb78-4" aria-hidden="true" tabindex="-1"></a><span class="fu">finally_do_this</span>(data4)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>즉, 함수를 실행하고 그 결과를 변수로 저장한 다음, 다음 함수에 해당 변수를 인수로 사용하는 방식이지요. 읽기 조금 수월한가요? 어느 정도는 괜찮습니다. 하지만, 이것도 결코 읽기 쉬운 코드라고 할 수는 없습니다. 또 그 내용을 알기 어려운 <code>data2</code>, <code>data3</code>, <code>data4</code> 등의 불필요한 데이터들이 계속해서 생성됩니다. 이 역시 가독성을 낮출 뿐더러, 불필요하게 메모리를 차지하게 됩니다. 데이터의 이름을 조금 더 이해하기 쉽게 만들면 좋겠지만, 이렇게 데이터 처리 와중에 생긴 데이터에 모두 이름을 붙일만한 의미가 있는 것도 아니고, 데이터 이름을 자꾸 만들다보면, 더 이상 이름을 만들 아이디어도 떠오르지 않게 됩니다(이건 농담이지만, 진담이기도 합니다!).</p>
 <p>우리가 파이프를 쓴다면 다음과 같이 쓸 수 있습니다.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb81"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb81-1"><a href="#cb81-1" aria-hidden="true" tabindex="-1"></a>data <span class="sc">|&gt;</span></span>
-<span id="cb81-2"><a href="#cb81-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">do_this_first</span>() <span class="sc">|&gt;</span></span>
-<span id="cb81-3"><a href="#cb81-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">do_this_next</span>() <span class="sc">|&gt;</span></span>
-<span id="cb81-4"><a href="#cb81-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">then_do_this</span>() <span class="sc">|&gt;</span></span>
-<span id="cb81-5"><a href="#cb81-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">finally_do_this</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb79"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a>data <span class="sc">|&gt;</span></span>
+<span id="cb79-2"><a href="#cb79-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">do_this_first</span>() <span class="sc">|&gt;</span></span>
+<span id="cb79-3"><a href="#cb79-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">do_this_next</span>() <span class="sc">|&gt;</span></span>
+<span id="cb79-4"><a href="#cb79-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">then_do_this</span>() <span class="sc">|&gt;</span></span>
+<span id="cb79-5"><a href="#cb79-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">finally_do_this</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>이 코드를 잘 보면 항상 파이프 왼쪽에서 발생한 결과가 다음 함수의 투입값(input)이 됩니다. 이 코드는 우리가 글을 읽는 방식과 동일한 순서에 따라 쓰여졌기 때문에 읽기 쉬울 뿐더러, 필요 없는 중간 단계의 데이터(<code>data2</code>, <code>data3</code> 따위)도 만들지 않았습니다. 우리는 앞으로 연속해서 함수를 적용해야 할 때, 위의 예와 같이 파이프를 사용할 것입니다. 여러분도 가능한 위의 코딩 스타일을 사용하도록 노력해 보세요!</p>
 </section>
 <section id="서브세트와-파이프를-동시에" class="level3">
-<h3 class="anchored" data-anchor-id="서브세트와-파이프를-동시에">(3) 서브세트와 파이프를 동시에!</h3>
+<h3 class="anchored" data-anchor-id="서브세트와-파이프를-동시에">서브세트와 파이프를 동시에!</h3>
 <p>이제 <code>tidyverse</code> 문법의 주요 구성 요소라고 말한 서스세트와 파이프를 결합해 보겠습니다. 이제 앞서 사용했던 예에서 특정 열을 선택하고, 또 어떤 조건에 따라 행도 선택한다고 해 보지요. 그러면 다음과 같이 쓸 수 있을 것입니다.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb82"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb82-1"><a href="#cb82-1" aria-hidden="true" tabindex="-1"></a>df <span class="sc">|&gt;</span></span>
-<span id="cb82-2"><a href="#cb82-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(height <span class="sc">&gt;=</span> <span class="dv">170</span> <span class="sc">&amp;</span> gender<span class="sc">==</span><span class="st">"Female"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb82-3"><a href="#cb82-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(gender, height)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb80"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb80-1"><a href="#cb80-1" aria-hidden="true" tabindex="-1"></a>df <span class="sc">|&gt;</span></span>
+<span id="cb80-2"><a href="#cb80-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(height <span class="sc">&gt;=</span> <span class="dv">170</span> <span class="sc">&amp;</span> gender<span class="sc">==</span><span class="st">"Female"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb80-3"><a href="#cb80-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(gender, height)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  gender height
 1 Female    170</code></pre>
@@ -763,15 +704,14 @@ $height
 <p>다음 내용으로 넘어가기 앞서, 위의 코드를 꼭 이해해야 합니다! 여러분은 이 책을 모두 읽을 때까지 비슷한 코드를 수십번 보고, 사용하게 될테니까요.</p>
 </section>
 </section>
-</section>
-<section id="프로젝트와-노트북-기사작성과-코딩을-동시에" class="level1">
-<h1>프로젝트와 노트북: 기사작성과 코딩을 동시에!</h1>
+<section id="프로젝트와-노트북-기사작성과-코딩을-동시에" class="level2">
+<h2 class="anchored" data-anchor-id="프로젝트와-노트북-기사작성과-코딩을-동시에">프로젝트와 노트북: 기사작성과 코딩을 동시에!</h2>
 <p>이제 Rstudio가 데이터 저널리스트의 작업을 편리하게 해줄만한 기능을 살펴보도록 합시다. 너무도 많은 기능이 있지만, 여기서는 프로젝트와 노트북 이라는 두 가지 가능에 대해 이야기 해 볼 것입니다. 프로젝트는 여러분이 하나의 보도 프로젝트를 위해 작성하는 코드와 데이터를 한데모아 관리하기 편하게 해 주는 기능이고, 노트북은 여러분이 쓰는 기사와 분석 코드, 분석 결과 등을 하나의 문서 안에서 표현하여 분석 코드 작성과 기사 작성을 따로 할 필요가 없게 해주는 문서 작성 규칙입니다. 두 기능 모두 이 교재 전체에 걸쳐 항상 사용될 것이니, 이 장에서 다루는 내용을 꼭 숙지해 주세요!</p>
-<section id="프로젝트" class="level2">
-<h2 class="anchored" data-anchor-id="프로젝트">프로젝트</h2>
+<section id="프로젝트" class="level3">
+<h3 class="anchored" data-anchor-id="프로젝트">프로젝트</h3>
 <p>프로젝트가 어떤 기능인지를 이해하기 위해서는 working directory, 즉 작업경로라는 개념을 이해해야 합니다. 작업경로는 현재 <code>R</code>이 자신이 위치하고 있다고 생각하는 저장장치 안의 폴더를 의미합니다. 보통은 지금 작성하고 있는 코드가 저장되어 있는 곳이 작업폴더가 되지만, 이는 경우에 따라 다릅니다. 현재 작업 폴더가 어디인지를 알기 위해서는 다음과 같은 명령어를 콘솔에서 실행해 보세요.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb84"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb84-1"><a href="#cb84-1" aria-hidden="true" tabindex="-1"></a><span class="fu">getwd</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb82"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb82-1"><a href="#cb82-1" aria-hidden="true" tabindex="-1"></a><span class="fu">getwd</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>작업폴더가 중요한 이유는, 저장장치로부터 <code>R</code>이 데이터를 불러올 때, 특별한 이야기가 없으면 작업폴더로부터 불러와야 한다고 생각하기 때문입니다. 하지만, <code>R</code>이 현재 작업폴더로 이용하고 있는 장소와 이용자가 작업폴더라고 믿고 있는 장소 사이에 차이가 있는 경우가 종종 있습니다. 프로그래밍을 처음 해 보시는 분들이 처음에 제일 많이 겪는 에러의 원인입니다.</p>
 <p>작업폴더의 문제를 해결하는 방법은 여러가지가 있지만, 하나의 보도 프로젝트를 위한 코드와 데이터, 즉 모든 파일은 항상 하나의 폴더 안에 저장해 놓도록 ’약속’하는 것입니다. 그 약속을 <code>R</code>에서는 <em>프로젝트</em>라고 부릅니다. <em>Rstudio</em>에서 <em>프로젝트</em>라고 부르는 것의 개념은 정말 단순합니다. 프로젝트는 특정한 작업을 할 때는 항상 사용하기로 미리 정해놓은 폴더 그 이상도 이하도 아닙니다. 예컨대, 지금 저는 이 교재를 쓰기 위해 <em>Rstudio</em>를 사용하고 있는데요, 이 교과서를 쓸 때는 <code>Book</code>이라는 프로젝트를 만들고, 해당 폴더 안에 책의 원고, 코드, 데이터 등을 모두 저장해 둡니다. 교과서를 쓰기 위해 필요한 모든 자료를 하나의 폴더 안에 모두 저장해 두고, <em>Rstudio</em>에게 “난 이 교재를 쓸 때는 <code>Book</code> 폴더만 사용할거야”, 라고 미리 말해두기만 하면, <em>Rstudio</em>에게 “나 이제부터 교재 쓴다”라고 알려주면 <em>Rstudio</em>는 알아서 작업경로를 바꿔줍니다.</p>
@@ -810,13 +750,12 @@ $height
 <p>이제 여러분이 <code>Rstudio</code>를 켜고 작업을 하려고 할 때 처음으로 해야 할 일은 적절한 프로젝트를 이용하는 것입니다. 새로운 작업을 시작한다면? 프로젝트를 만드세요. 만약 프로젝트를 이미 만들어 놓은 작업을 계속하고 싶다면? 지금 <code>Rstudio</code>가 그 작업에 해당하는 프로젝트를 이용하고 있는지 확인하세요. 만약 그렇지 않다면 <code>Recent Projects</code>나 <code>Open Project</code>를 이용해 해당 프로젝트로 이동하면 됩니다. 항상 작업은 그 이후에 시작합니다.</p>
 </section>
 </section>
-<section id="quarto-노트북" class="level2">
-<h2 class="anchored" data-anchor-id="quarto-노트북">Quarto 노트북</h2>
+<section id="quarto-노트북" class="level3">
+<h3 class="anchored" data-anchor-id="quarto-노트북">Quarto 노트북</h3>
 <p>우리는 지금까지 <code>R</code>의 기초적인 기능을 살펴보면서, 콘솔이라고 하는 창을 이용해 왔습니다. 이 콘솔이라고 하는 창은 R의 엔진, 실제로 프로그램이 돌아가는 곳이라고 볼 수 있습니다. 하지만 콘솔에서는 코드를 작성하고 엔터키를 누르는 순간, 프로그램이 실행되고 맙니다. 지금까지 작성해 온 간단한 코드라면, 이런 방식으로 충분하겠지만, 만약 수십줄, 많게는 수백줄의 코드를 작성하고, 작성한 코드가 한 번에 실행되기를 바란다면, 이것은 그다지 효율적인 방법이 아니겠지요. 따라서, 대부분 프로그래머들은 컴퓨터 메모장에 글을 쓰듯, 먼저 긴 코드를 작성한 후, 이것이 차례차례 콘솔에서 작동되도록 합니다. 이를 위해 작성한 코드로 이루어진 텍스트 파일을 흔히 ’스크립트’라고 부릅니다. 하지만 이런 스크립트 방식의코드 작성법은 콘솔을 이용한 방법과는 반대로 작성한 코드의 부분부분이 의도한대로 잘 작동하는지 확인하는 것을 어렵게 만듭니다.</p>
 <p>따라서, 우리는 그 중간쯤 되는 ’노트북’이라는 방법을 사용하려고 합니다. 노트북 방법을 사용하면, 코드를 작성하면서 중간중간 결과를 확인할 수도 있고, 프로그램을 모두 작성한 후에는 전체 프로그램을 한 번에 실행할 수도 있습니다. 그리고 그보다 더 좋은 점은 코드와 코드 사이 원하는대로 문서를 작성할 수도 있고, 그 결과를 그대로 문서 파일, 프리젠테이션 파일, 심지어 웹페이지 형태로 바로 추출할 수 있다는 점입니다. 온라인 기사를 작성한다고 생각해 보면, 데이터 분석, 시각화, 기사 작성을 한 문서 안에서 별도의 작업 없이 할 수 있다는 뜻입니다! 따라서, 이 교재에서는 내내 노트북 환경을 사용하도록 하하겠습니다.</p>
-</section>
-<section id="노트북-생성하기" class="level2">
-<h2 class="anchored" data-anchor-id="노트북-생성하기">노트북 생성하기</h2>
+<section id="노트북-생성하기" class="level4">
+<h4 class="anchored" data-anchor-id="노트북-생성하기">노트북 생성하기</h4>
 <p>노트북 환경을 이용하는 방법은 여러가지가 있지만, 우리는 “Quarto Document”라는 가장 표준적인 방법을 사용할 것입니다. “Quarto Document”를 사용하려면 새로운 “Quarto Document” 파일을 하나 만들어주면 됩니다. <code>Rstudio</code> 상단의 <code>File</code> 메뉴에서 <code>New File</code>이라고 되어 있는 곳에 마우스 커서를 올려보세요, 그러면 오른쪽에 떠오르는 메뉴에 “Quarto Document”라는 항목이 있을 것입니다. 이를 클릭하면 다음과 같은 창이 떠오릅니다.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -835,8 +774,8 @@ $height
 <p>마지막으로 해당 파일을 저장해 주세요. ‘File’ 메뉴에서 ’Save’를 클릭한 후, 파일명을 정해주면 됩니다. 확장자는 <code>qmd</code>가 됩니다.</p>
 <p>이제 여러분은 노트북 환경을 이용하기 위한 준비가 되었습니다.</p>
 </section>
-<section id="노트북-이용하기" class="level2">
-<h2 class="anchored" data-anchor-id="노트북-이용하기">노트북 이용하기</h2>
+<section id="노트북-이용하기" class="level4">
+<h4 class="anchored" data-anchor-id="노트북-이용하기">노트북 이용하기</h4>
 <p>노트북 환경은 구체적으로는 다음과 같습니다.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -858,8 +797,9 @@ $height
 <p>마치 하나의 웹페이지 화면처럼 보이지 않나요? 실제로 텍스트 파일 상단에 있는 <code>Render</code> 버튼을 누르기만 하면 바로 웹페이지를 만들어냅니다. 더 정확하게는 해당 <code>qmd</code>파일을 일종의 스크립트 삼아, 텍스트 부분은 텍스트로 표현하고, chunk에 해당하는 부분은 코드를 실행시킨 다음, 그 결과까지 모두 포함하여 하나의 HTML 파일을 만들어 냅니다. 여러분이 사용하고 있는 프로젝트 폴더에 들어가보세요. 방금 <code>Render</code>한 <code>qmd</code>파일과 같은 파일명을 가진 HTML 파일이 생성되어 있을 것입니다. 그 파일을 더블클릭하면, 여러분이 사용하는 브라우저를 통해 마치 웹페이지처럼 정돈된 결과물을 볼 수 있습니다.</p>
 <p>방금 <code>Render</code>한 <code>qmd</code> 파일에서 일반 텍스트가 여러분이 작성한 기사 내용, 그리고 chunk가 여러분이 독자들에게 보이고자 하는 데이터 시각화를 시행하는 코드라고 생각해 보세요! 그러면 여러분은 이미 인터넷으로 배포할 수 있는 기사 웹페이지 하나를 만든 셈입니다!</p>
 </section>
-<section id="마크다운-문법" class="level2">
-<h2 class="anchored" data-anchor-id="마크다운-문법">마크다운 문법</h2>
+</section>
+<section id="마크다운-문법" class="level3">
+<h3 class="anchored" data-anchor-id="마크다운-문법">마크다운 문법</h3>
 <p><code>Rstudio</code>가 우리가 작성한 <code>qmd</code> 파일에서 코드에 해당하는 부분, 일반 텍스트에 해당하는 부분을 자동으로 구분하고 다양한 기능을 사용할 수 있게 해줄 뿐만 아니라, 심지어 웹페이지로까지 만들어 주는 것은 우리가 <code>Rstudio</code>가 이해할 수 있는 특정 문법을 따르기 때문입니다. 이 문법을 ’마크다운(markdown)’이라고 부릅니다. 사실 확장자명 <code>qmd</code>에서 “md”가 마크다운(markdown)을 뜻하지요. 앞서 사용한 “—” “```{r}” 이런 것들이 마크다운 문법 중 일부입니다. 마크다운의 문법은 물론 이것 말고도 다양합니다.</p>
 <p>우리는 앞서 <code>Rstudio</code>가 chunk 안에 있는 문자는 코드로 인식해 실행하고, 그 밖의 문자는 텍스트 그대로 표현한다고 했습니다. 사실 이는 정확한 이야기가 아닙니다. 왜냐하면 <code>Rstudio</code>가 chunk 밖의 문자를 일반 텍스트로 인식하는 것은 맞지만, 일반 텍스트에 여러 효과를 부여하기 위한 몇 가지 간단한 문법이 있기 때문이지요. 이러한 문법들은 써도 그만, 안 써도 그만이지만 시각적으로 더 효율적인 웹페이지를 생성하기 위해 유용합니다. 예컨대 다음과 같은 것들이 그 문법에 해당합니다.</p>
 <blockquote class="blockquote">
@@ -897,9 +837,9 @@ $height
 <figcaption>Rstudio가 마크다운을 웹페이지로 만드는 순서</figcaption>
 </figure>
 </div>
-<p>명심하세요! 여러분들은 이 책을 통해 연습을 하는 동안 항상 <code>qmd</code> 파일을 하나 만들어 마크다운 문법을 이요해 코드와 텍스트를 동시에 작성하고 이를 HTML로 렌더하는 작업을 반복할 것입니다. 그 외에도 <code>R</code>을 사용하는 여러 방법이 있지만, 일단 가장 쉽고 기사 작성을 위해 유용한 이 방법을 반복해서 사용하세요!</p>
 
 
+</section>
 </section>
 </section>
 
