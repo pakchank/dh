@@ -2,7 +2,7 @@ project:
   type: website
 
 website:
-  title: "2025 디지털인문학 R & K-디아스포라 워크샵"
+  title: "R & K-디아스포라 워크샵"
   navbar:
     left:
       - href: index.qmd

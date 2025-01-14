@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>tidygraph – 2025 디지털인문학 R &amp; K-디아스포라 워크샵</title>
+<title>tidygraph – R &amp; K-디아스포라 워크샵</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -121,7 +121,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a class="navbar-brand" href="./index.html">
-    <span class="navbar-title">2025 디지털인문학 R &amp; K-디아스포라 워크샵</span>
+    <span class="navbar-title">R &amp; K-디아스포라 워크샵</span>
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
@@ -144,15 +144,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="./2_tidytext.html"> 
-<span class="menu-text">Tidy한 텍스트 분석</span></a>
+<span class="menu-text">1. Tidy한 텍스트 분석</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link active" href="./3_tidygraph.html" aria-current="page"> 
-<span class="menu-text">Tidy한 네트워크 분석</span></a>
+<span class="menu-text">2. Tidy한 네트워크 분석</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="./4_shiny.html"> 
-<span class="menu-text">웹앱을 이용한 시각화 공유</span></a>
+<span class="menu-text">3. 웹앱을 이용한 시각화 공유</span></a>
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
@@ -170,7 +170,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#tidy한-네트워크-분석" id="toc-tidy한-네트워크-분석" class="nav-link active" data-scroll-target="#tidy한-네트워크-분석">Tidy한 네트워크 분석</a>
+  <li><a href="#tidy한-네트워크-분석" id="toc-tidy한-네트워크-분석" class="nav-link active" data-scroll-target="#tidy한-네트워크-분석">2. Tidy한 네트워크 분석</a>
   <ul class="collapse">
   <li><a href="#ner-테그를-이용해-인물-장소-조직을-추출" id="toc-ner-테그를-이용해-인물-장소-조직을-추출" class="nav-link" data-scroll-target="#ner-테그를-이용해-인물-장소-조직을-추출">NER 테그를 이용해 인물, 장소, 조직을 추출</a></li>
   <li><a href="#그래프-데이터로-변환환" id="toc-그래프-데이터로-변환환" class="nav-link" data-scroll-target="#그래프-데이터로-변환환">그래프 데이터로 변환환</a></li>
@@ -187,18 +187,32 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <section id="tidy한-네트워크-분석" class="level1">
-<h1>Tidy한 네트워크 분석</h1>
+<h1>2. Tidy한 네트워크 분석</h1>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(purrr)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidytext)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidygraph)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(igraph)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(networkD3)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(widyr)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggraph)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(glue)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co">#library(showtext)</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co">#font_add_google(name = "Nanum Gothic", family = "nanumgothic")</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co">#showtext_auto()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <section id="ner-테그를-이용해-인물-장소-조직을-추출" class="level2">
 <h2 class="anchored" data-anchor-id="ner-테그를-이용해-인물-장소-조직을-추출">NER 테그를 이용해 인물, 장소, 조직을 추출</h2>
 <p>테그 레퍼런스: https://aiopen.etri.re.kr/guide/WiseNLU</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>dt_ner <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">"dt_ner.rds"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>dt_ner <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">"dt_ner.rds"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>dt_ner <span class="sc">|&gt;</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">str_detect</span>(type, <span class="st">"DT_|QT_|AM_|TI_|MT_|PT_"</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>        <span class="co">#!(type %in% c("")))</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">count</span>(text, <span class="at">sort=</span>T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>dt_ner <span class="sc">|&gt;</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">str_detect</span>(type, <span class="st">"DT_|QT_|AM_|TI_|MT_|PT_"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>        <span class="co">#!(type %in% c("")))</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">count</span>(text, <span class="at">sort=</span>T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2,938 × 2
    text         n
@@ -217,38 +231,38 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>dt_cat <span class="ot">&lt;-</span> dt_ner <span class="sc">|&gt;</span> </span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(<span class="fu">str_detect</span>(type, <span class="st">"(^PS_NAME)|^(LC)|^(OG)"</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">cat =</span> <span class="fu">case_when</span>(<span class="fu">str_detect</span>(type, <span class="st">"^PS_NAME"</span>) <span class="sc">~</span>  <span class="st">"인물"</span>,</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>                           <span class="fu">str_detect</span>(type, <span class="st">"^LC"</span>) <span class="sc">~</span> <span class="st">"장소"</span>,</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>                           <span class="fu">str_detect</span>(type, <span class="st">"^OG"</span>) <span class="sc">~</span> <span class="st">"조직"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>dt_cat <span class="ot">&lt;-</span> dt_ner <span class="sc">|&gt;</span> </span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(<span class="fu">str_detect</span>(type, <span class="st">"(^PS_NAME)|^(LC)|^(OG)"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">cat =</span> <span class="fu">case_when</span>(<span class="fu">str_detect</span>(type, <span class="st">"^PS_NAME"</span>) <span class="sc">~</span>  <span class="st">"인물"</span>,</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>                           <span class="fu">str_detect</span>(type, <span class="st">"^LC"</span>) <span class="sc">~</span> <span class="st">"장소"</span>,</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>                           <span class="fu">str_detect</span>(type, <span class="st">"^OG"</span>) <span class="sc">~</span> <span class="st">"조직"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>nodeAttr <span class="ot">&lt;-</span> dt_cat <span class="sc">|&gt;</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(text, cat) <span class="sc">|&gt;</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarise</span>(<span class="at">text=</span><span class="fu">first</span>(text), <span class="at">cat=</span><span class="fu">first</span>(cat)) <span class="sc">|&gt;</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ungroup</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>nodeAttr <span class="ot">&lt;-</span> dt_cat <span class="sc">|&gt;</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(text, cat) <span class="sc">|&gt;</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarise</span>(<span class="at">text=</span><span class="fu">first</span>(text), <span class="at">cat=</span><span class="fu">first</span>(cat)) <span class="sc">|&gt;</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ungroup</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>`summarise()` has grouped output by 'text'. You can override using the
 `.groups` argument.</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co">#saveRDS(nodeAttr, "nodeAttr.rds")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co">#saveRDS(nodeAttr, "nodeAttr.rds")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>dupList <span class="ot">&lt;-</span> nodeAttr <span class="sc">|&gt;</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(text) <span class="sc">|&gt;</span></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">n</span>()) <span class="sc">|&gt;</span></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(n <span class="sc">&gt;=</span> <span class="dv">2</span>) <span class="sc">|&gt;</span></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pull</span>(text)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>dupList <span class="ot">&lt;-</span> nodeAttr <span class="sc">|&gt;</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(text) <span class="sc">|&gt;</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">n</span>()) <span class="sc">|&gt;</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(n <span class="sc">&gt;=</span> <span class="dv">2</span>) <span class="sc">|&gt;</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pull</span>(text)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co">#saveRDS(dupList, "dupList.rds")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co">#saveRDS(dupList, "dupList.rds")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>nodeAttr <span class="sc">|&gt;</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(text <span class="sc">%in%</span> dupList)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>nodeAttr <span class="sc">|&gt;</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(text <span class="sc">%in%</span> dupList)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 75 × 2
    text       cat  
@@ -270,51 +284,51 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="그래프-데이터로-변환환" class="level2">
 <h2 class="anchored" data-anchor-id="그래프-데이터로-변환환">그래프 데이터로 변환환</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> dt_cat <span class="sc">|&gt;</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(<span class="sc">!</span>(text <span class="sc">%in%</span> dupList)) <span class="sc">|&gt;</span></span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">unite</span>(<span class="st">"bp"</span>, <span class="fu">c</span>(<span class="st">"book"</span>, <span class="st">"para"</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pairwise_count</span>(text, bp, <span class="at">sort=</span><span class="cn">TRUE</span>, <span class="at">diag=</span><span class="cn">FALSE</span>) <span class="sc">|&gt;</span></span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">rename</span>(<span class="at">weight=</span>n) <span class="sc">|&gt;</span></span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>    <span class="co">#filter(weight &gt; 5) |&gt;</span></span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">graph_from_data_frame</span>(<span class="at">directed=</span><span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> dt_cat <span class="sc">|&gt;</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(<span class="sc">!</span>(text <span class="sc">%in%</span> dupList)) <span class="sc">|&gt;</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">unite</span>(<span class="st">"bp"</span>, <span class="fu">c</span>(<span class="st">"book"</span>, <span class="st">"para"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pairwise_count</span>(text, bp, <span class="at">sort=</span><span class="cn">TRUE</span>, <span class="at">diag=</span><span class="cn">FALSE</span>) <span class="sc">|&gt;</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">rename</span>(<span class="at">weight=</span>n) <span class="sc">|&gt;</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>    <span class="co">#filter(weight &gt; 5) |&gt;</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">graph_from_data_frame</span>(<span class="at">directed=</span><span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">is_weighted</span>(g)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">is_weighted</span>(g)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>gTidy <span class="ot">&lt;-</span> g <span class="sc">|&gt;</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">as_tbl_graph</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>gTidy <span class="ot">&lt;-</span> g <span class="sc">|&gt;</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">as_tbl_graph</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co">#saveRDS(gTidy, "gTidy.rds")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co">#saveRDS(gTidy, "gTidy.rds")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="그래프-시각화" class="level2">
 <h2 class="anchored" data-anchor-id="그래프-시각화">그래프 시각화</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co">#nodeList &lt;- gTidy |&gt;</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="co">#    activate(nodes) |&gt;</span></span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="co">#    pull()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co">#nodeList &lt;- gTidy |&gt;</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="co">#    activate(nodes) |&gt;</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="co">#    pull()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>gTidy <span class="sc">|&gt;</span> </span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">activate</span>(edges) <span class="sc">|&gt;</span></span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(weight <span class="sc">&gt;</span> <span class="dv">10</span>) <span class="sc">|&gt;</span></span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">activate</span>(nodes) <span class="sc">|&gt;</span> </span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">left_join</span>(nodeAttr <span class="sc">|&gt;</span></span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">filter</span>(<span class="sc">!</span>(text <span class="sc">%in%</span> dupList)), <span class="at">by=</span><span class="fu">c</span>(<span class="st">"name"</span><span class="ot">=</span><span class="st">"text"</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">degree =</span> <span class="fu">centrality_degree</span>()) <span class="sc">|&gt;</span></span>
-<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(degree <span class="sc">!=</span> <span class="dv">0</span>) <span class="sc">|&gt;</span></span>
-<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggraph</span>() <span class="sc">+</span></span>
-<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">edgh_width=</span>weight, <span class="at">alpah=</span>weight) <span class="sc">+</span></span>
-<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_edge_link</span>(<span class="at">alpha =</span> <span class="fl">0.50</span>, <span class="at">edge_color =</span> <span class="st">"grey20"</span>) <span class="sc">+</span></span>
-<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_node_point</span>(<span class="fu">aes</span>(<span class="at">color=</span>cat), <span class="at">size=</span><span class="dv">10</span>) <span class="sc">+</span></span>
-<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>  <span class="co">#  geom_node_text(aes(label=name)) |&gt;</span></span>
-<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_node_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> name),         <span class="co"># 텍스트 표시</span></span>
-<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>                 <span class="at">repel =</span> T,                 <span class="co"># 노드밖 표시</span></span>
-<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a>                 <span class="at">size =</span> <span class="dv">5</span>,                  <span class="co"># 텍스트 크기</span></span>
-<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a>                 <span class="at">family =</span> <span class="st">"nanumgothic"</span>) <span class="sc">+</span>  <span class="co"># 폰트</span></span>
-<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_graph</span>()                             <span class="co"># 배경 삭제                       # 배경 삭제</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>gTidy <span class="sc">|&gt;</span> </span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">activate</span>(edges) <span class="sc">|&gt;</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(weight <span class="sc">&gt;</span> <span class="dv">10</span>) <span class="sc">|&gt;</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">activate</span>(nodes) <span class="sc">|&gt;</span> </span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">left_join</span>(nodeAttr <span class="sc">|&gt;</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">filter</span>(<span class="sc">!</span>(text <span class="sc">%in%</span> dupList)), <span class="at">by=</span><span class="fu">c</span>(<span class="st">"name"</span><span class="ot">=</span><span class="st">"text"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">degree =</span> <span class="fu">centrality_degree</span>()) <span class="sc">|&gt;</span></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(degree <span class="sc">!=</span> <span class="dv">0</span>) <span class="sc">|&gt;</span></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggraph</span>() <span class="sc">+</span></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">edgh_width=</span>weight, <span class="at">alpah=</span>weight) <span class="sc">+</span></span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_edge_link</span>(<span class="at">alpha =</span> <span class="fl">0.50</span>, <span class="at">edge_color =</span> <span class="st">"grey20"</span>) <span class="sc">+</span></span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_node_point</span>(<span class="fu">aes</span>(<span class="at">color=</span>cat), <span class="at">size=</span><span class="dv">10</span>) <span class="sc">+</span></span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>  <span class="co">#  geom_node_text(aes(label=name)) |&gt;</span></span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_node_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> name),         <span class="co"># 텍스트 표시</span></span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>                 <span class="at">repel =</span> T,                 <span class="co"># 노드밖 표시</span></span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a>                 <span class="at">size =</span> <span class="dv">5</span>,                  <span class="co"># 텍스트 크기</span></span>
+<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a>                 <span class="at">family =</span> <span class="st">"nanumgothic"</span>) <span class="sc">+</span>  <span class="co"># 폰트</span></span>
+<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_graph</span>()                             <span class="co"># 배경 삭제                       # 배경 삭제</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Using "stress" as default layout</code></pre>
 </div>
@@ -327,15 +341,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>pair <span class="ot">&lt;-</span> dt_ner <span class="sc">|&gt;</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">str_detect</span>(type, <span class="st">"DT_|QT_|AM_|TI_|MT_|PT_"</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pairwise_count</span>(<span class="at">item =</span> text, </span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>                   <span class="at">feature =</span> para,    <span class="co"># 다른 책의 같은 para일 수 있음 -&gt; book도 같이 구분하도록 고쳐야 함!</span></span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>                   <span class="at">sort =</span> T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>pair <span class="ot">&lt;-</span> dt_ner <span class="sc">|&gt;</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">str_detect</span>(type, <span class="st">"DT_|QT_|AM_|TI_|MT_|PT_"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pairwise_count</span>(<span class="at">item =</span> text, </span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>                   <span class="at">feature =</span> para,    <span class="co"># 다른 책의 같은 para일 수 있음 -&gt; book도 같이 구분하도록 고쳐야 함!</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>                   <span class="at">sort =</span> T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>pair <span class="sc">|&gt;</span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(item1 <span class="sc">==</span> <span class="st">"조선족"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>pair <span class="sc">|&gt;</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(item1 <span class="sc">==</span> <span class="st">"조선족"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 69 × 3
    item1  item2        n
@@ -354,26 +368,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>graph_kd <span class="ot">&lt;-</span> pair <span class="sc">%&gt;%</span></span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(n <span class="sc">&gt;=</span> <span class="dv">20</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tbl_graph</span>(<span class="at">directed =</span> F) <span class="sc">%&gt;%</span></span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">centrality =</span> <span class="fu">centrality_degree</span>(),    <span class="co"># 연결 중심성</span></span>
-<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">group =</span> <span class="fu">as.factor</span>(<span class="fu">group_infomap</span>()))  <span class="co"># 커뮤니티</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>graph_kd <span class="ot">&lt;-</span> pair <span class="sc">%&gt;%</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(n <span class="sc">&gt;=</span> <span class="dv">20</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tbl_graph</span>(<span class="at">directed =</span> F) <span class="sc">%&gt;%</span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">centrality =</span> <span class="fu">centrality_degree</span>(),    <span class="co"># 연결 중심성</span></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">group =</span> <span class="fu">as.factor</span>(<span class="fu">group_infomap</span>()))  <span class="co"># 커뮤니티</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>graph_kd <span class="sc">|&gt;</span></span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggraph</span>(<span class="at">layout =</span> <span class="st">"fr"</span>) <span class="sc">+</span>      <span class="co"># 레이아웃</span></span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_edge_link</span>(<span class="at">color =</span> <span class="st">"gray50"</span>,          <span class="co"># 엣지 색깔</span></span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>                 <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span>             <span class="co"># 엣지 명암</span></span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_node_point</span>(<span class="fu">aes</span>(<span class="at">size =</span> centrality,    <span class="co"># 노드 크기</span></span>
-<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>                      <span class="at">color =</span> group),       <span class="co"># 노드 색깔</span></span>
-<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>                  <span class="at">show.legend =</span> F) <span class="sc">+</span>        <span class="co"># 범례 삭제</span></span>
-<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_size</span>(<span class="at">range =</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">15</span>)) <span class="sc">+</span>            <span class="co"># 노드 크기 범위</span></span>
-<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_node_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> name),         <span class="co"># 텍스트 표시</span></span>
-<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>                 <span class="at">repel =</span> T,                 <span class="co"># 노드밖 표시</span></span>
-<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>                 <span class="at">size =</span> <span class="dv">5</span>,                  <span class="co"># 텍스트 크기</span></span>
-<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>                 <span class="at">family =</span> <span class="st">"nanumgothic"</span>) <span class="sc">+</span>  <span class="co"># 폰트</span></span>
-<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_graph</span>()                             <span class="co"># 배경 삭제</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>graph_kd <span class="sc">|&gt;</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggraph</span>(<span class="at">layout =</span> <span class="st">"fr"</span>) <span class="sc">+</span>      <span class="co"># 레이아웃</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_edge_link</span>(<span class="at">color =</span> <span class="st">"gray50"</span>,          <span class="co"># 엣지 색깔</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>                 <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span>             <span class="co"># 엣지 명암</span></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_node_point</span>(<span class="fu">aes</span>(<span class="at">size =</span> centrality,    <span class="co"># 노드 크기</span></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>                      <span class="at">color =</span> group),       <span class="co"># 노드 색깔</span></span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>                  <span class="at">show.legend =</span> F) <span class="sc">+</span>        <span class="co"># 범례 삭제</span></span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_size</span>(<span class="at">range =</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">15</span>)) <span class="sc">+</span>            <span class="co"># 노드 크기 범위</span></span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_node_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> name),         <span class="co"># 텍스트 표시</span></span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>                 <span class="at">repel =</span> T,                 <span class="co"># 노드밖 표시</span></span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>                 <span class="at">size =</span> <span class="dv">5</span>,                  <span class="co"># 텍스트 크기</span></span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>                 <span class="at">family =</span> <span class="st">"nanumgothic"</span>) <span class="sc">+</span>  <span class="co"># 폰트</span></span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_graph</span>()                             <span class="co"># 배경 삭제</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -387,24 +401,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="networkd3를-이용한-인터랙리브-시각화" class="level2">
 <h2 class="anchored" data-anchor-id="networkd3를-이용한-인터랙리브-시각화"><code>networkD3</code>를 이용한 인터랙리브 시각화</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>gig <span class="ot">&lt;-</span> gTidy <span class="sc">|&gt;</span> </span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">activate</span>(edges) <span class="sc">|&gt;</span></span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(weight <span class="sc">&gt;</span> <span class="dv">4</span>) <span class="sc">|&gt;</span></span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">activate</span>(nodes) <span class="sc">|&gt;</span> </span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">left_join</span>(nodeAttr <span class="sc">|&gt;</span></span>
-<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">filter</span>(<span class="sc">!</span>(text <span class="sc">%in%</span> dupList)), <span class="at">by=</span><span class="fu">c</span>(<span class="st">"name"</span><span class="ot">=</span><span class="st">"text"</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">degree =</span> <span class="fu">centrality_degree</span>()) <span class="sc">|&gt;</span></span>
-<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(degree <span class="sc">!=</span> <span class="dv">0</span>) <span class="sc">|&gt;</span></span>
-<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">as.igraph</span>() </span>
-<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>gD3 <span class="ot">&lt;-</span> gig <span class="sc">|&gt;</span></span>
-<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">igraph_to_networkD3</span>(<span class="at">group=</span><span class="fu">vertex_attr</span>(gig)<span class="sc">$</span>cat)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>gig <span class="ot">&lt;-</span> gTidy <span class="sc">|&gt;</span> </span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">activate</span>(edges) <span class="sc">|&gt;</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(weight <span class="sc">&gt;</span> <span class="dv">4</span>) <span class="sc">|&gt;</span></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">activate</span>(nodes) <span class="sc">|&gt;</span> </span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">left_join</span>(nodeAttr <span class="sc">|&gt;</span></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">filter</span>(<span class="sc">!</span>(text <span class="sc">%in%</span> dupList)), <span class="at">by=</span><span class="fu">c</span>(<span class="st">"name"</span><span class="ot">=</span><span class="st">"text"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">degree =</span> <span class="fu">centrality_degree</span>()) <span class="sc">|&gt;</span></span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(degree <span class="sc">!=</span> <span class="dv">0</span>) <span class="sc">|&gt;</span></span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">as.igraph</span>() </span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>gD3 <span class="ot">&lt;-</span> gig <span class="sc">|&gt;</span></span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">igraph_to_networkD3</span>(<span class="at">group=</span><span class="fu">vertex_attr</span>(gig)<span class="sc">$</span>cat)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">forceNetwork</span>(<span class="at">Links=</span>gD3<span class="sc">$</span>links, <span class="at">Nodes=</span>gD3<span class="sc">$</span>nodes,</span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>             <span class="at">Source =</span> <span class="st">'source'</span>, <span class="at">Target =</span> <span class="st">'target'</span>, <span class="at">NodeID =</span> <span class="st">'name'</span>, <span class="at">Group =</span> <span class="st">'group'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">forceNetwork</span>(<span class="at">Links=</span>gD3<span class="sc">$</span>links, <span class="at">Nodes=</span>gD3<span class="sc">$</span>nodes,</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>             <span class="at">Source =</span> <span class="st">'source'</span>, <span class="at">Target =</span> <span class="st">'target'</span>, <span class="at">NodeID =</span> <span class="st">'name'</span>, <span class="at">Group =</span> <span class="st">'group'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div class="forceNetwork html-widget html-fill-item" id="htmlwidget-44a1ec8c211943144af2" style="width:100%;height:464px;"></div>
-<script type="application/json" data-for="htmlwidget-44a1ec8c211943144af2">{"x":{"links":{"source":[0,0,1,1,2,2,2,15,2,15,20,20,21,21,2,10,10,17,17,2,2,2,2,2,2,2,1,2,1,2,5,5,0,2,1,1,2,0,0,1,1,0,7,7,1,1,2,2,2,2,10,10,2,0,1,1,2,0,2,2,2,14,14,2,4,4,2,1,1,2,1,0,1,0,45,45,1,0,6,6,0,1,0,0,2,2,2,2,2,2,2,4,2,4,4,4,26,26,0,0,33,33,0,1,0,1,1,0,0,2,4,2,4,1,1,1,2,2,13,2,13,2,7,7,2,3,3,2,2,2,1,1,10,10,2,2,1,1,2,2,15,2,15,2,10,2,1,1,10,2,1,0,1,0,6,5,5,6,0,0,1,1,1,1,0,0,0,0,4,4,2,2,2,2],"target":[5,5,5,5,38,38,30,30,30,30,30,30,43,43,31,31,31,31,31,31,25,25,39,39,37,37,28,28,28,28,6,6,6,6,6,6,6,6,23,23,23,23,13,13,13,13,13,13,24,24,42,42,10,10,10,10,10,10,11,11,29,29,29,29,12,12,12,12,12,12,27,27,27,27,46,46,14,14,14,14,14,14,32,32,32,32,36,36,18,18,7,7,7,7,41,41,44,44,34,34,34,34,2,2,2,2,9,9,9,9,9,9,9,9,3,3,3,3,16,16,16,16,16,16,19,19,19,19,4,4,4,4,17,17,17,17,15,15,15,15,21,21,21,21,22,22,22,22,22,22,33,33,33,33,8,8,8,8,8,8,8,8,40,40,40,40,1,1,26,26,20,20,35,35],"colour":["#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666"]},"nodes":{"name":["독일","한국","일본","조선","조선학교","경북지역","대구","오사카","파독광부","정부","미국","배동록","북한","도쿄","서울","최","조선대학교","중국","야하타 제철소","조선반도","후쿠오카","최창화","캐나다","대한민국","러시아","규슈","효고현","서독","남북","부산","고쿠라","구소련","알래스카","터키","이태리","후쿠오카현","야하타","나가사키","고찬유","김정자","프랑크푸르트","외국인학교","로스앤젤레스","고쿠라교회","외국인학교협의회","서준식","서승"],"group":["장소","장소","장소","장소","조직","장소","장소","장소","조직","조직","장소","인물","장소","장소","장소","인물","조직","장소","장소","장소","장소","인물","장소","장소","장소","장소","장소","장소","장소","장소","장소","장소","장소","장소","장소","장소","장소","장소","인물","인물","장소","조직","장소","조직","조직","인물","인물"]},"options":{"NodeID":"name","Group":"group","colourScale":"d3.scaleOrdinal(d3.schemeCategory20);","fontSize":7,"fontFamily":"serif","clickTextSize":17.5,"linkDistance":50,"linkWidth":"function(d) { return Math.sqrt(d.value); }","charge":-30,"opacity":0.6,"zoom":false,"legend":false,"arrows":false,"nodesize":false,"radiusCalculation":" Math.sqrt(d.nodesize)+6","bounded":false,"opacityNoHover":0,"clickAction":null}},"evals":[],"jsHooks":[]}</script>
+<div class="forceNetwork html-widget html-fill-item" id="htmlwidget-eb2747a504a7cfa29e9f" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-eb2747a504a7cfa29e9f">{"x":{"links":{"source":[0,0,1,1,2,2,2,15,2,15,20,20,21,21,2,10,10,17,17,2,2,2,2,2,2,2,1,2,1,2,5,5,0,2,1,1,2,0,0,1,1,0,7,7,1,1,2,2,2,2,10,10,2,0,1,1,2,0,2,2,2,14,14,2,4,4,2,1,1,2,1,0,1,0,45,45,1,0,6,6,0,1,0,0,2,2,2,2,2,2,2,4,2,4,4,4,26,26,0,0,33,33,0,1,0,1,1,0,0,2,4,2,4,1,1,1,2,2,13,2,13,2,7,7,2,3,3,2,2,2,1,1,10,10,2,2,1,1,2,2,15,2,15,2,10,2,1,1,10,2,1,0,1,0,6,5,5,6,0,0,1,1,1,1,0,0,0,0,4,4,2,2,2,2],"target":[5,5,5,5,38,38,30,30,30,30,30,30,43,43,31,31,31,31,31,31,25,25,39,39,37,37,28,28,28,28,6,6,6,6,6,6,6,6,23,23,23,23,13,13,13,13,13,13,24,24,42,42,10,10,10,10,10,10,11,11,29,29,29,29,12,12,12,12,12,12,27,27,27,27,46,46,14,14,14,14,14,14,32,32,32,32,36,36,18,18,7,7,7,7,41,41,44,44,34,34,34,34,2,2,2,2,9,9,9,9,9,9,9,9,3,3,3,3,16,16,16,16,16,16,19,19,19,19,4,4,4,4,17,17,17,17,15,15,15,15,21,21,21,21,22,22,22,22,22,22,33,33,33,33,8,8,8,8,8,8,8,8,40,40,40,40,1,1,26,26,20,20,35,35],"colour":["#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666"]},"nodes":{"name":["독일","한국","일본","조선","조선학교","경북지역","대구","오사카","파독광부","정부","미국","배동록","북한","도쿄","서울","최","조선대학교","중국","야하타 제철소","조선반도","후쿠오카","최창화","캐나다","대한민국","러시아","규슈","효고현","서독","남북","부산","고쿠라","구소련","알래스카","터키","이태리","후쿠오카현","야하타","나가사키","고찬유","김정자","프랑크푸르트","외국인학교","로스앤젤레스","고쿠라교회","외국인학교협의회","서준식","서승"],"group":["장소","장소","장소","장소","조직","장소","장소","장소","조직","조직","장소","인물","장소","장소","장소","인물","조직","장소","장소","장소","장소","인물","장소","장소","장소","장소","장소","장소","장소","장소","장소","장소","장소","장소","장소","장소","장소","장소","인물","인물","장소","조직","장소","조직","조직","인물","인물"]},"options":{"NodeID":"name","Group":"group","colourScale":"d3.scaleOrdinal(d3.schemeCategory20);","fontSize":7,"fontFamily":"serif","clickTextSize":17.5,"linkDistance":50,"linkWidth":"function(d) { return Math.sqrt(d.value); }","charge":-30,"opacity":0.6,"zoom":false,"legend":false,"arrows":false,"nodesize":false,"radiusCalculation":" Math.sqrt(d.nodesize)+6","bounded":false,"opacityNoHover":0,"clickAction":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 

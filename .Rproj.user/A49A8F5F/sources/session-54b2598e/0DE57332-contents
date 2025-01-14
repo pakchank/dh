@@ -1,6 +1,6 @@
 # 2. Tidy한 네트워크 분석
 
-```{r warning=FALSE, message=FALSE, echo=FALSE}
+```{r warning=FALSE, message=FALSE}
 library(tidyverse)
 library(purrr)
 library(tidytext)
