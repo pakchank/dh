@@ -127,7 +127,7 @@ res <- POST(url="http://aiopen.etri.re.kr:8000/WiseNLU_spoken",
             body='{"argument": {"text": "박찬경은 경북대학교 미디어커뮤니케이션학과 조교수 입니다.", "analysis_code": "ner"}}',
             encode="raw",
             add_headers(.headers=c("Content-Type" = "application/json; charset=UTF-8",
-                                   "Authorization"="45a48207-93d4-4d40-9b10-1db71ea2b3ce"))) 
+                                   "Authorization"="발급받은 API KEY"))) 
 ```
 
 ```{r}
@@ -151,7 +151,7 @@ ner <- function(text) {
             body= body,
             encode="raw",
             add_headers(.headers=c("Content-Type" = "application/json; charset=UTF-8",
-                                   "Authorization"="45a48207-93d4-4d40-9b10-1db71ea2b3ce"))) 
+                                   "Authorization"="발급받은 API KEY"))) 
     
     sentences <- fromJSON(content(res, as="text", encoding='UTF-8'), simplifyVector=FALSE)$return_object$sentence
     

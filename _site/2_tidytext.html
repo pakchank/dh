@@ -305,7 +305,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>            <span class="at">body=</span><span class="st">'{"argument": {"text": "박찬경은 경북대학교 미디어커뮤니케이션학과 조교수 입니다.", "analysis_code": "ner"}}'</span>,</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">encode=</span><span class="st">"raw"</span>,</span>
 <span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>            <span class="fu">add_headers</span>(<span class="at">.headers=</span><span class="fu">c</span>(<span class="st">"Content-Type"</span> <span class="ot">=</span> <span class="st">"application/json; charset=UTF-8"</span>,</span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>                                   <span class="st">"Authorization"</span><span class="ot">=</span><span class="st">"45a48207-93d4-4d40-9b10-1db71ea2b3ce"</span>))) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>                                   <span class="st">"Authorization"</span><span class="ot">=</span><span class="st">"발급받은 API KEY"</span>))) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>sentences <span class="ot">&lt;-</span> <span class="fu">fromJSON</span>(<span class="fu">content</span>(res, <span class="at">as=</span><span class="st">"text"</span>, <span class="at">encoding=</span><span class="st">'UTF-8'</span>), <span class="at">simplifyVector=</span><span class="cn">FALSE</span>)<span class="sc">$</span>return_object<span class="sc">$</span>sentence</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -313,7 +313,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(sentences)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 1</code></pre>
+<pre><code>[1] 0</code></pre>
 </div>
 </div>
 <div class="cell">
@@ -322,13 +322,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">map</span>(<span class="sc">~</span><span class="fu">bind_rows</span>(.x)) <span class="sc">|&gt;</span></span>
 <span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">bind_rows</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 4 × 7
-     id text                   type              begin   end weight common_noun
-  &lt;int&gt; &lt;chr&gt;                  &lt;chr&gt;             &lt;int&gt; &lt;int&gt;  &lt;dbl&gt;       &lt;int&gt;
-1     0 박찬경                 PS_NAME               0     0  0.404           0
-2     1 경북대학교             OGG_EDUCATION         2     2  0.756           0
-3     2 미디어커뮤니케이션학과 FD_SOCIAL_SCIENCE     3     5  0.384           0
-4     3 조교수                 CV_POSITION           6     7  0.412           0</code></pre>
+<pre><code># A tibble: 0 × 0</code></pre>
 </div>
 </div>
 <div class="cell">
@@ -338,7 +332,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">body=</span> body,</span>
 <span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">encode=</span><span class="st">"raw"</span>,</span>
 <span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>            <span class="fu">add_headers</span>(<span class="at">.headers=</span><span class="fu">c</span>(<span class="st">"Content-Type"</span> <span class="ot">=</span> <span class="st">"application/json; charset=UTF-8"</span>,</span>
-<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>                                   <span class="st">"Authorization"</span><span class="ot">=</span><span class="st">"45a48207-93d4-4d40-9b10-1db71ea2b3ce"</span>))) </span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>                                   <span class="st">"Authorization"</span><span class="ot">=</span><span class="st">"발급받은 API KEY"</span>))) </span>
 <span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>    </span>
 <span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>    sentences <span class="ot">&lt;-</span> <span class="fu">fromJSON</span>(<span class="fu">content</span>(res, <span class="at">as=</span><span class="st">"text"</span>, <span class="at">encoding=</span><span class="st">'UTF-8'</span>), <span class="at">simplifyVector=</span><span class="cn">FALSE</span>)<span class="sc">$</span>return_object<span class="sc">$</span>sentence</span>
 <span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>    </span>

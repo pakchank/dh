@@ -1,9 +1,0 @@
-"0","list_large <- list()"
-"0",""
-"0","for (i in 1:nrow(df)){"
-"0","    list_large[[i]] <- ner_para(df[i, ])"
-"0","}"
-"2","에러: lexical error: invalid char in json text.
-                                       <!DOCTYPE html> <html lang=""en""
-                     (right here) ------^
-"
