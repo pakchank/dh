@@ -1,5 +1,0 @@
-"0","graph_kd <- pair %>%"
-"0","  filter(n >= 10) %>%"
-"0","  as_tbl_graph(directed = F) %>%"
-"0","  mutate(centrality = centrality_degree(),    # 연결 중심성"
-"0","         group = as.factor(group_infomap()))  # 커뮤니티"

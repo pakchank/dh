@@ -65,7 +65,7 @@ nodeAttr |>
 ```
 
 
-## 그래프 데이터로 변환환
+## 그래프 데이터로 변환
 ```{r}
 g <- dt_cat |>
     filter(!(text %in% dupList)) |>

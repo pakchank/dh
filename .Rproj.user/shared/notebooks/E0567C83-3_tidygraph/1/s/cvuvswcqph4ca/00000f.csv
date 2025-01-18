@@ -1,5 +1,0 @@
-"0","dt_cat <- dt_ner |> "
-"0","    filter(str_detect(type, ""(^PS_NAME)|^(LC)|^(OG)"")) |>"
-"0","    mutate(cat = case_when(str_detect(type, ""^PS_NAME"") ~  ""인물"","
-"0","                           str_detect(type, ""^LC"") ~ ""장소"","
-"0","                           str_detect(type, ""^OG"") ~ ""조직""))"

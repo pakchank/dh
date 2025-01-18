@@ -1,7 +1,0 @@
-"0","g <- dt_cat |>"
-"0","    filter(!(text %in% dupList)) |>"
-"0","    unite(""bp"", c(""book"", ""para"")) |>"
-"0","    pairwise_count(text, bp, sort=TRUE, diag=FALSE) |>"
-"0","    rename(weight=n) |>"
-"0","    #filter(weight > 5) |>"
-"0","    graph_from_data_frame(directed=FALSE)"

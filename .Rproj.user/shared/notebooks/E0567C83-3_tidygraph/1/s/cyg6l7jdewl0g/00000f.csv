@@ -1,5 +1,0 @@
-"0","nodeAttr <- dt_cat |>"
-"0","    group_by(text, cat) |>"
-"0","    summarise(text=first(text), cat=first(cat)) |>"
-"0","    ungroup()"
-"2","`summarise()` has grouped output by 'text'. You can override using the `.groups` argument."

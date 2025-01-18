@@ -28,3 +28,7 @@ author: "박찬경 (경북대학교)"
 -   `shiny`를 이용해 웹으로 공개하기
 
 단, 사전설문 결과에 따라, 강의 내용 변경이 있을 예정입니다.
+
+마지막으로, 강의에서 사용할 슬라이드와 데이터는 아래 구글 드라이브에서 다운받을 수 있습니다.
+
+> [**강의용 공유 폴더**](https://drive.google.com/drive/folders/1h-tXp3aJJnhzk719WC9MeI5xQu17bqnh?usp=sharing)
